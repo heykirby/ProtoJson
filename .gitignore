@@ -1,0 +1,16 @@
+.idea
+*.iml
+.classpath
+.project
+.settings
+.checkstyle
+.gradle*
+*/target/
+*.jar
+logs
+build/
+node_modules/
+derby.log
+dependency-reduced-pom.xml
+**/.DS_Store
+.swp
