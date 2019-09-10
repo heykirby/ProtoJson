@@ -5,6 +5,7 @@
 .settings
 .checkstyle
 .gradle*
+target/
 */target/
 *.jar
 logs
