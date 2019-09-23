@@ -1,6 +1,8 @@
 package com.kuaishou.data.udf.video;
 
-import org.apache.commons.codec.binary.Base64;
+import java.util.ArrayList;
+import java.util.Base64;
+
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.hive.ql.exec.UDFArgumentException;
 
@@ -17,28 +19,34 @@ public class ParsePTS extends UDF {
             throw new UDFArgumentException("must take two arguments");
         }
 
-        try {
-            if (str.contains(",")) {
-                return -1;
-            }
-            byte[] decode = Base64.decodeBase64(str);
-            int i = 6;
-            while (i < decode.length) {
-                int cur = decode[i] < 0 ? decode[i] + 256 : decode[i];
-                int cur1 = decode[i + 1] < 0 ? decode[i + 1] + 256 : decode[i + 1];
-                int cur_4 = decode[i - 4] < 0 ? decode[i - 4] + 256 : decode[i - 4];
-                int cur_3 = decode[i - 3] < 0 ? decode[i - 3] + 256 : decode[i - 3];
-                int pts_1 = cur << 8 | cur1;
-                int pts_2 = cur_4 << 8 | cur_3;
-                int pts_diff = pts_2 - pts_1;
-                if (pts_diff >= base) {
-                    return 1;
+        ArrayList<Long> ptsList = new ArrayList<>();
+        if (str.contains(",")) {
+            for (String s : str.split(",")) {
+                try {
+                    ptsList.add(Long.parseLong(s));
+                } catch (NumberFormatException e) {
+                    return 0;
                 }
-                i += 2;
             }
-            return 0;
-        } catch (Exception e) {
-            return -1;
+        } else {
+            byte[] bytes = null;
+            try {
+                bytes = Base64.getDecoder().decode(str);
+            } catch (IllegalArgumentException e) {
+                return 0;
+            }
+            long s = 0;
+            for (int i = 0; i < bytes.length; i += 2) {
+                s += (bytes[i] << 8) | (bytes[i + 1] & 0xff);
+                ptsList.add(s);
+            }
         }
+
+        for (int i = 2; i < ptsList.size(); i += 1) {
+            if (ptsList.get(i) - ptsList.get(i - 2) > base) {
+                return 1;
+            }
+        }
+        return 0;
     }
 }
