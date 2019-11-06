@@ -31,6 +31,7 @@
 视频组的jar包路径在`HDFS`的`/home/video/jars`。
 
 ### <font color=red>[备注]</font>
+hue下执行自定义udf，如果出现错误，可以尝试 set hive.smart.router.enable=false;set hive.execution.engine=mr;
 heave_dependency_udf和platform_udf模块已迁移至http://git.corp.kuaishou.com/data-platform/platform_udf
 
 
