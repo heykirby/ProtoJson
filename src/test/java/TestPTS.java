@@ -10,7 +10,7 @@ import org.junit.Test;
  * Created on 2019-09-06
  */
 public class TestPTS {
-    public static String evaluate(String str) throws UDFArgumentException {
+    public static ArrayList<Long> evaluate(String str) throws UDFArgumentException {
 
         if (str == null || str.length() == 0) {
             throw new UDFArgumentException("must take two arguments");
@@ -22,7 +22,7 @@ public class TestPTS {
                 try {
                     ptsList.add(Long.parseLong(s));
                 } catch (NumberFormatException e) {
-                    return "0";
+                    return null;
                 }
             }
         } else {
@@ -30,11 +30,11 @@ public class TestPTS {
             try {
                 bytes = Base64.getDecoder().decode(str);
             } catch (IllegalArgumentException e) {
-                return "0";
+                return null;
             }
             long s = 0;
             for (int i = 0; i < bytes.length; i += 2) {
-                s +=  (bytes[i] << 8) | (bytes[i + 1] & 0xff);
+                s = (bytes[i] << 8) | (bytes[i + 1] & 0xff);
                 ptsList.add(s);
             }
         }
@@ -44,14 +44,21 @@ public class TestPTS {
             long l = ptsList.get(i) - ptsList.get(i - 1);
             dur = dur + "," + String.valueOf(l);
         }
-        return dur;
+        return ptsList;
     }
 
     public static void main(String[] args) throws UDFArgumentException {
-        String
+        ArrayList<Long>
                 arr =
                 evaluate(
-                        "AAAAZABnAGEAZQBjAGUAYgBlAGMAZQBiAGUAZQBjAGMAZwBiAGUAYwBjAGUAYwBpAGEAYgBlAGIAZgBjAGUAZQBiAGQAZABlAGMAZABlAGMAYgBmAGYAYQBoAGAAZABkAGQAZABmAGEAZQBjAGUAYwBkAGQAZABmAGIAZABlAGIAZABmAGMAZABkAGMAZQBjAGQAZwBjAGIAZwBhAGQAYwBnAGAAZwBiAGYAYwBlAGMAZQBk");
-        System.out.println(arr);
+                        "AAAAygBjAGUAZABkAGQAZQBfAGYAZABkAGMAZQBkAGQAZgBlAGMAZgBhAGMAZABjAGgAZQBkAGIAYABoAGIAZABmAGIAZQBkAGMAYQBmAGIAYwBlAGcAYgBjAGcAYgBnAGMAYQBlAGMAZgBhAGoAXwBmAGUAYQBhAGUAZABmAGMAYgBnAGEAZgBiAGUAZQBkAGUAYgBkAGQAZABmAGQAZgBjAGIAZABpAGMAXgBlAGY");
+        int a=0;
+        for (int i = 1; i < arr.size(); i++) {
+            System.out.println(i + ":" + arr.get(i));
+            if(arr.get(i)+arr.get(i-1)>200){
+                a+=1;
+            }
+        }
+        System.out.println( a);
     }
 }
