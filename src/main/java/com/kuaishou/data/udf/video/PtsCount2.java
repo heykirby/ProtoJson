@@ -7,7 +7,7 @@ import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.hive.ql.exec.UDFArgumentException;
 
 
-public class ParsePTS2 extends UDF {
+public class PtsCount2 extends UDF {
 
 
     public Integer evaluate(String str, Integer base) throws UDFArgumentException {
@@ -34,13 +34,13 @@ public class ParsePTS2 extends UDF {
             }
             long s = 0;
             for (int i = 0; i < bytes.length; i += 2) {
-                s += (bytes[i] << 8) | (bytes[i + 1] & 0xff);
+                s = (bytes[i] << 8) | (bytes[i + 1] & 0xff);
                 ptsList.add(s);
             }
         }
         int times = 0;
-        for (int i = 2; i < ptsList.size(); i += 1) {
-            if (ptsList.get(i) - ptsList.get(i - 2) > base) {
+        for (int i = 1; i < ptsList.size(); i += 1) {
+            if (ptsList.get(i) + ptsList.get(i - 1) > base) {
                 times = times + 1;
             }
         }

@@ -34,13 +34,13 @@ public class PtsCount extends UDF {
             }
             long s = 0;
             for (int i = 0; i < bytes.length; i += 2) {
-                s = (bytes[i] << 8) | (bytes[i + 1] & 0xff);
+                s += (bytes[i] << 8) | (bytes[i + 1] & 0xff);
                 ptsList.add(s);
             }
         }
         int times = 0;
-        for (int i = 1; i < ptsList.size(); i += 1) {
-            if (ptsList.get(i) + ptsList.get(i - 1) > base) {
+        for (int i = 2; i < ptsList.size(); i += 1) {
+            if (ptsList.get(i) - ptsList.get(i - 2) > base) {
                 times = times + 1;
             }
         }
