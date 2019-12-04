@@ -54,19 +54,38 @@ public class AcFunUrlTrans {
     }
 
     public static void main(String[] args) throws InvalidProtocolBufferException {
-        System.out.println(parseSubTask(URI.create("http://ali-video.acfun.cn/mediacloud/acfun/acfun_video/segment" +
-                "/nMTtidUZitlB_14ckXvSusm6xJrAlFJ5zoe9IcxP61bKypXevNaZOPV6pDj2WMnY.m3u8")));
-        System.out.println(parseSubTask(URI.create("http://ali-video.acfun.cn/mediacloud/acfun/acfun_video/segment" +
-                "/192568069023866880_HLS_720P_HEVC_2.m3u8")));
+        System.out.println(parseSubTask("http://ali-video.acfun.cn/mediacloud/acfun/acfun_video/segment" +
+                "/nMTtidUZitlB_14ckXvSusm6xJrAlFJ5zoe9IcxP61bKypXevNaZOPV6pDj2WMnY.m3u8"));
+        System.out.println(parseSubTask(
+                "http://36.158.208.226/030001100057BDD47F47C02D9B7D2FCAAAA6CA- AF17-249B-7CF1-0B1BB6E3C7D2.m3u8"));
+        System.out.println(parseSubTask("http://ali-video.acfun.cn/mediacloud/acfun/acfun_video/segment" +
+                "/192568069023866880_HLS_720P_HEVC_2.m3u8"));
+        URI uri = URI.create(
+                "http://ali-video.acfun.cn/mediacloud/acfun/acfun_video/segment/192568069023866880_HLS_720P_HEVC_2"
+                        + ".m3u8");
+
+        System.out.println(uri.getPath());
     }
 
-    public static String parseSubTask(URI uri) throws InvalidProtocolBufferException {
-        String encryptedName = FilenameUtils.getBaseName(uri.getPath());
-        if (encryptedName.matches("\\d{15}.+")) {
-            return encryptedName.substring(encryptedName.indexOf("_") + 1);
+    public static String parseSubTask(String url) throws InvalidProtocolBufferException {
+        FileName fileName =null;
+        try {
+            if (!url.startsWith("http")){
+                return null;
+            }
+            String path = URI.create(url).getPath();
+            if (!path.endsWith(".m3u8")){
+                return null;
+            }
+            String encryptedName = FilenameUtils.getBaseName(path);
+            if (encryptedName.matches("\\d{15}.+")) {
+                return encryptedName.substring(encryptedName.indexOf("_") + 1);
+            }
+            fileName = parseName(encryptedName);
+        }catch (Exception e){
+            return null;
         }
-        FileName fileName = parseName(encryptedName);
-        return fileName.getSubTask();
+        return fileName == null?null:fileName.getSubTask();
     }
 
 }
