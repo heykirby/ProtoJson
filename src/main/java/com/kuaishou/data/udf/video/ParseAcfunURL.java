@@ -14,13 +14,13 @@ public class ParseAcfunURL extends UDF {
     public String evaluate(String url) throws UDFArgumentException {
 
         if (url == null || url.length() == 0) {
-            throw new UDFArgumentException("must take one string arguments");
+            throw new UDFArgumentException("must take one arguments");
         }
 
-        String res="";
+        String res=null;
         try {
-             res = AcFunUrlTrans.parseSubTask(URI.create(url));
-        } catch (InvalidProtocolBufferException e) {
+             res = AcFunUrlTrans.parseSubTask(url);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return res;
