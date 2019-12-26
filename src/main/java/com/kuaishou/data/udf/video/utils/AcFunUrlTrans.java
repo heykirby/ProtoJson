@@ -54,11 +54,11 @@ public class AcFunUrlTrans {
     }
 
     public static void main(String[] args) throws InvalidProtocolBufferException {
-        System.out.println(parseSubTask("http://ali-video.acfun.cn/mediacloud/acfun/acfun_video/segment" +
+        System.out.println(parseSubTaskId("http://ali-video.acfun.cn/mediacloud/acfun/acfun_video/segment" +
                 "/nMTtidUZitlB_14ckXvSusm6xJrAlFJ5zoe9IcxP61bKypXevNaZOPV6pDj2WMnY.m3u8"));
-        System.out.println(parseSubTask(
+        System.out.println(parseSubTaskId(
                 "http://36.158.208.226/030001100057BDD47F47C02D9B7D2FCAAAA6CA- AF17-249B-7CF1-0B1BB6E3C7D2.m3u8"));
-        System.out.println(parseSubTask("http://ali-video.acfun.cn/mediacloud/acfun/acfun_video/segment" +
+        System.out.println(parseSubTaskId("http://ali-video.acfun.cn/mediacloud/acfun/acfun_video/segment" +
                 "/192568069023866880_HLS_720P_HEVC_2.m3u8"));
         URI uri = URI.create(
                 "http://ali-video.acfun.cn/mediacloud/acfun/acfun_video/segment/192568069023866880_HLS_720P_HEVC_2"
@@ -86,6 +86,26 @@ public class AcFunUrlTrans {
             return null;
         }
         return fileName == null?null:fileName.getSubTask();
+    }
+    public static String parseSubTaskId(String url) throws InvalidProtocolBufferException {
+        FileName fileName =null;
+        try {
+            if (!url.startsWith("http")){
+                return null;
+            }
+            String path = URI.create(url).getPath();
+            if (!path.endsWith(".m3u8")){
+                return null;
+            }
+            String encryptedName = FilenameUtils.getBaseName(path);
+            if (encryptedName.matches("\\d{15}.+")) {
+                return encryptedName.substring(0,encryptedName.indexOf("_"));
+            }
+            fileName = parseName(encryptedName);
+        }catch (Exception e){
+            return null;
+        }
+        return fileName == null?null:String.valueOf(fileName.getTaskId());
     }
 
 }
