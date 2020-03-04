@@ -63,6 +63,14 @@ public class TestPTS {
     }
 
     public static void main(String[] args) throws UDFArgumentException {
+        List<String> items = new ArrayList<>();
+        items.add("A");
+        items.add("B");
+        items.add("C");
+        items.add("D");
+        items.add("E");
+        String join = StringUtils.join(items, ",");
+        System.out.println(join);
 
         List<ImmutableList<Long>>
                 arr =
