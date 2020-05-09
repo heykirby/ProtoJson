@@ -22,8 +22,8 @@ public class AcFunUrlTrans {
             0x35, (byte) 0xdf, 0x13, (byte) 0xde, 0x4e, 0x1b, 0x49, (byte) 0xaf};
 
     private static final byte[] AES_IV_BYTES = {
-            (byte) 0xa2,  (byte) 0xc8, 0x7c,  (byte) 0xe4,  (byte) 0xeb, (byte) 0xbe, 0x43, 0x1b,
-            0x72, 0x49, 0x54, 0x72, 0x43, 0x4a, (byte) 0xde, 0x078 };
+            (byte) 0xa2, (byte) 0xc8, 0x7c, (byte) 0xe4, (byte) 0xeb, (byte) 0xbe, 0x43, 0x1b,
+            0x72, 0x49, 0x54, 0x72, 0x43, 0x4a, (byte) 0xde, 0x078};
 
     private static final AESCBCCoder CODER = AESCBCFixedIVCoder.of(AES_KEY_BYTES, AES_IV_BYTES);
 
@@ -68,13 +68,13 @@ public class AcFunUrlTrans {
     }
 
     public static String parseSubTask(String url) throws InvalidProtocolBufferException {
-        FileName fileName =null;
+        FileName fileName = null;
         try {
-            if (!url.startsWith("http")){
+            if (!url.startsWith("http")) {
                 return null;
             }
             String path = URI.create(url).getPath();
-            if (!path.endsWith(".m3u8")){
+            if (!path.endsWith(".m3u8")) {
                 return null;
             }
             String encryptedName = FilenameUtils.getBaseName(path);
@@ -82,30 +82,31 @@ public class AcFunUrlTrans {
                 return encryptedName.substring(encryptedName.indexOf("_") + 1);
             }
             fileName = parseName(encryptedName);
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
-        return fileName == null?null:fileName.getSubTask();
+        return fileName == null ? null : fileName.getSubTask();
     }
+
     public static String parseSubTaskId(String url) throws InvalidProtocolBufferException {
-        FileName fileName =null;
+        FileName fileName = null;
         try {
-            if (!url.startsWith("http")){
+            if (!url.startsWith("http")) {
                 return null;
             }
             String path = URI.create(url).getPath();
-            if (!path.endsWith(".m3u8")){
+            if (!path.endsWith(".m3u8")) {
                 return null;
             }
             String encryptedName = FilenameUtils.getBaseName(path);
             if (encryptedName.matches("\\d{15}.+")) {
-                return encryptedName.substring(0,encryptedName.indexOf("_"));
+                return encryptedName.substring(0, encryptedName.indexOf("_"));
             }
             fileName = parseName(encryptedName);
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
-        return fileName == null?null:String.valueOf(fileName.getTaskId());
+        return fileName == null ? null : String.valueOf(fileName.getTaskId());
     }
 
 }
