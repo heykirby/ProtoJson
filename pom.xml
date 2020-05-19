@@ -108,6 +108,12 @@
             <artifactId>htrace-core</artifactId>
             <version>3.1.0-incubating</version>
         </dependency>
+
+        <dependency>
+            <groupId>kuaishou</groupId>
+            <artifactId>media-cloud-client</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-common</artifactId>
