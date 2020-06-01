@@ -61,4 +61,17 @@ public class SplitLiveStream extends UDF {
         return contacts;
 
     }
+    //"sid":"PJaEXnBd0xQ_hd2000","osid":"PJaEXnBd0xQ",
+    public String evaluate(Text osid,Text sid) {
+        if (sid == null || sid.getLength() < 1 || osid == null || osid.getLength() < 1) {
+            return "null";
+        }
+        String sidStr = sid.toString();
+        String osidStr = osid.toString();
+        if (sid.getLength()==osid.getLength()){
+            return "null";
+        }else {
+            return sidStr.replace(osidStr,"").replace("_","");
+        }
+    }
 }
