@@ -115,6 +115,11 @@
         </dependency>
 
         <dependency>
+            <groupId>kuaishou</groupId>
+            <artifactId>kuaishou-cdn-urlkeeper-sdk</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-common</artifactId>
             <scope>provided</scope>
