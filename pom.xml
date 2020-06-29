@@ -115,11 +115,6 @@
         </dependency>
 
         <dependency>
-            <groupId>kuaishou</groupId>
-            <artifactId>kuaishou-cdn-urlkeeper-sdk</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-common</artifactId>
             <scope>provided</scope>
@@ -172,74 +167,58 @@
                 </executions>
             </plugin>
 
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-shade-plugin</artifactId>-->
-                <!--<version>3.1.1</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>shade</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<filters>-->
-                                <!--<filter>-->
-                                    <!--<artifact>*:*</artifact>-->
-                                    <!--<excludes>-->
-                                        <!--<exclude>META-INF/*.SF</exclude>-->
-                                        <!--<exclude>META-INF/*.DSA</exclude>-->
-                                        <!--<exclude>META-INF/*.RSA</exclude>-->
-                                    <!--</excludes>-->
-                                <!--</filter>-->
-                            <!--</filters>-->
-                            <!--<relocations>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>com.google.common</pattern>-->
-                                    <!--<shadedPattern>com.kuaishou.flink.shaded.com.google.common</shadedPattern>-->
-                                <!--</relocation>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>com.google.protobuf</pattern>-->
-                                    <!--<shadedPattern>com.kuaishou.flink.shaded.com.google.protobuf</shadedPattern>-->
-                                <!--</relocation>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>org.apache.curator</pattern>-->
-                                    <!--<shadedPattern>com.kuaishou.flink.shaded.org.apache.curator</shadedPattern>-->
-                                <!--</relocation>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>io.netty</pattern>-->
-                                    <!--<shadedPattern>com.kuaishou.flink.shaded.io.netty</shadedPattern>-->
-                                <!--</relocation>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>com.codahale</pattern>-->
-                                    <!--<shadedPattern>com.kuaishou.flink.shaded.com.codahale</shadedPattern>-->
-                                <!--</relocation>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>org.codehaus.jackson</pattern>-->
-                                    <!--<shadedPattern>com.kuaishou.flink.shaded.org.codehaus.jackson</shadedPattern>-->
-                                <!--</relocation>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>org.apache.commons.lang3</pattern>-->
-                                    <!--<shadedPattern>com.kuaishou.flink.shaded.org.apache.commons.lang3</shadedPattern>-->
-                                <!--</relocation>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>org.apache.xerces</pattern>-->
-                                    <!--<shadedPattern>com.kuaishou.flink.shaded.org.apache.xerces</shadedPattern>-->
-                                <!--</relocation>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>com.fasterxml.jackson</pattern>-->
-                                    <!--<shadedPattern>com.kuaishou.flink.shaded.com.fasterxml.jackson</shadedPattern>-->
-                                <!--</relocation>-->
-                                <!--<relocation>-->
-                                    <!--<pattern>com.github.phantomthief</pattern>-->
-                                    <!--<shadedPattern>com.kuaishou.flink.shaded.com.github.phantomthief</shadedPattern>-->
-                                <!--</relocation>-->
-                            <!--</relocations>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.</pattern>
+                                    <!-- 请您注意 shade路径是独一无二的 该路径不能重复和被模仿  -->
+                                    <!-- 请您注意 shade之后的命名规则需要符合自己填写的 最左前缀规则！！！ -->
+                                    <shadedPattern>com.kuaishou.video.niesipin.udf.com.</shadedPattern>
+                                    <!-- 请您注意 不要重复shade自己 将自己的路径排除 每一级都要指定  -->
+                                    <!-- 请您注意 如果有新建层级的包 需要多指定一层 此处为了兼容层级 进行了冗余 -->
+                                    <excludes>
+                                        <exclude>com.kuaishou.data.udf.**</exclude>
+<!--                                        <exclude>com.kuaishou.cdn.**</exclude>-->
+                                    </excludes>
+                                </relocation>
+                                <relocation>
+                                    <!-- 例： 将org.下进行全量shade -->
+                                    <pattern>org.</pattern>
+                                    <!-- 请您注意 shade路径是独一无二的 该路径不能重复和被模仿 -->
+                                    <!-- 请您注意 shade之后的命名规则需要符合自己填写的 最左前缀规则！！！ -->
+                                    <shadedPattern>com.kuaishou.video.niesipin.udf.org.</shadedPattern>
+                                    <excludes>
+                                        <!-- 请您注意 将hadoop和hive依赖排除，因为hive包是provided的，不能将hive包shade -->
+                                        <exclude>org.apache.hadoop.**</exclude>
+                                        <exclude>org.slf4j.**</exclude>
+                                    </excludes>
+                                </relocation>
+                            </relocations>
 
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
     </build>
