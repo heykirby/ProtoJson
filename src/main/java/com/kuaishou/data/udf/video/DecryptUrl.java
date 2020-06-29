@@ -1,10 +1,10 @@
 package com.kuaishou.data.udf.video;
 
-        import com.kuaishou.cdn.urlkeeper.client.UrlKeeperClient;
-        import org.apache.hadoop.hive.ql.exec.UDF;
+import com.kuaishou.cdn.urlkeeper.client.UrlKeeperClient;
+import org.apache.hadoop.hive.ql.exec.UDF;
 
-        import java.net.URI;
-        import java.net.URISyntaxException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class DecryptUrl extends UDF {
 
