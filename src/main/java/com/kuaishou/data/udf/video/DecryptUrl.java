@@ -17,7 +17,10 @@ public class DecryptUrl extends UDF {
             URI url = new URI(originUrl);
             if (url.getPath().startsWith("/ksc")) {
                 String realPath = UrlKeeperClient.getOriginalUrl(url.getPath());
-                return originUrl.split("/ksc")[0] + realPath;
+                String suffix = "";
+                if (!originUrl.endsWith(url.getPath()))
+                    suffix = originUrl.split(url.getPath())[1];
+                return originUrl.split("/ksc")[0] + realPath + suffix;
             }
         } catch (URISyntaxException ignored) {
         }
