@@ -221,7 +221,7 @@
                                         <!-- 请您注意 将hadoop和hive依赖排除，因为hive包是provided的，不能将hive包shade -->
                                         <exclude>org.apache.hadoop.**</exclude>
                                         <exclude>org.slf4j.**</exclude>
-                                        <exclude>org.apache.commons.**</exclude>
+                                        <exclude>org.apache.commons.io.**</exclude>
                                     </excludes>
                                 </relocation>
                             </relocations>
