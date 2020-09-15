@@ -113,6 +113,10 @@
             <groupId>kuaishou</groupId>
             <artifactId>media-cloud-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>kuaishou</groupId>
+            <artifactId>kuaishou-live-sdk</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.hbase</groupId>
