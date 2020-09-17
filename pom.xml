@@ -161,6 +161,14 @@
             <artifactId>commons-io</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>kuaishou</groupId>
+            <artifactId>kuaishou-cdn-public-sdk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>kuaishou</groupId>
+            <artifactId>kuaishou-cdn-urlkeeper-sdk</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

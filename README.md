@@ -51,3 +51,4 @@ create temporary function parUrl as `$package`;
 |9|获取zk数据|String path|列表|com.kuaishou.data.udf.video.GetZKList|输入为null 抛出异常，解析错误 返回null|
 |10|判断是否在zk列表里|String path,string id|boolean|com.kuaishou.data.udf.video.IsZKList|验证id是否包在path的zk里面，|
 |11| 解析精彩片段id | long id OR String id | String id OR long id | com.kuaishou.data.udf.video.GetLiveHighlightId | 解析错误时返回 0 或者 "" |
+|12| 判断url是否为有效的pkey url | String url,String domain, long timestamp | com.kuaishou.data.udf.video.AcfunJudgePkeyValid | 返回是否为有效pkey url的布尔值 |
