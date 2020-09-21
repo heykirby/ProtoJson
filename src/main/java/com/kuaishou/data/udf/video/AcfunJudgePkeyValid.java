@@ -23,6 +23,6 @@ public class AcfunJudgePkeyValid {
         String url = "http://tx-safety-video.acfun.cn/mediacloud/acfun/acfun_video/hls/jq8AKoVSvVNc6p6bQWtgIG54eDACwGG_uiaKAfW30zFSYBUphnEveljUr4FOHHGY.00248.ts?pkey=AAPmou42VxJ59GhwgVE6dbd0mSRk0r3kkTx9XlQkKAQVlSZvYJto52koXTOghWHqamVkZLp2QBdeltsehPPgrT-fwEKIHyZGhIiqa9T59M2Y1AKLX6IO7rOF78fGeY88s-VEdI7bSpkNFRdThbljWUHX3sXvsOUUn4CVqwq84Ka7UdcKjz3ZpcG-qMAP5hIMTdWwLPCeBtmsULaYNONpEP_m-1S3dOBODJW08qisxHkJ4_53ah_l7VmXQxS8XN7-4zMuVio5xHfePz3GpgrEGV5w3KdbgHXYjTqAr2jHt2uMjojVowNMpLr4ckg5M00wAR873JtwAh8Y1eGN5UYdQYmc";
         String domain = "tx-safety-video.acfun.cn";
         AcfunJudgePkeyValid judgePkeyValid = new AcfunJudgePkeyValid();
-        System.out.println("flag: " + judgePkeyValid.evaluate(url, domain, 1600259661736L));
+        System.out.println("flag: " + judgePkeyValid.evaluate(url, domain, 1600510488586L));
     }
 }
