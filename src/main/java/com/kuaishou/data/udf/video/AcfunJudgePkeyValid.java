@@ -8,15 +8,18 @@ import com.kuaishou.cdn.api.safety.CdnAuthSigner;
 
 public class AcfunJudgePkeyValid {
 
-    public boolean evaluate(String url, String domain, Long timestamp) {
+    public String evaluate(String url, String domain, Long timestamp) {
 
         if (url == null || url.length() == 0 || domain == null || domain.length() == 0 || timestamp == null) {
             //            throw new UDFArgumentException("must take three arguments");
             System.out.println("url error");
         }
-
-        return CdnAuthSigner
-                .checkAuthInfoForAcFun(url, domain, timestamp);
+        try{
+            return CdnAuthSigner
+                    .checkAuthInfoForAcFun(url, domain, timestamp);
+        }catch (Exception e){
+            return e.getMessage();
+        }
     }
 
     public static void main(String[] args) {
