@@ -6,7 +6,7 @@ import org.apache.hadoop.hive.ql.exec.UDFArgumentException;
 import com.kuaishou.cdn.api.safety.CdnAuthSigner;
 
 
-public class AcfunJudgePkeyValid {
+public class AcfunJudgePkeyValid extends UDF{
 
     public String evaluate(String url, String domain, Long timestamp) {
 
