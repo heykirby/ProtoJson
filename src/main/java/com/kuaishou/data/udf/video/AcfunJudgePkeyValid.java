@@ -6,7 +6,7 @@ import org.apache.hadoop.hive.ql.exec.UDFArgumentException;
 import com.kuaishou.cdn.api.safety.CdnAuthSigner;
 
 
-public class AcfunJudgePkeyValid extends UDF{
+public class AcfunJudgePkeyValid{
 
     public String evaluate(String url, String domain, Long timestamp) {
 
@@ -23,9 +23,9 @@ public class AcfunJudgePkeyValid extends UDF{
     }
 
     public static void main(String[] args) {
-        String url = "http://tx-safety-video.acfun.cn/mediacloud/acfun/acfun_video/hls/jq8AKoVSvVNc6p6bQWtgIG54eDACwGG_uiaKAfW30zFSYBUphnEveljUr4FOHHGY.00248.ts?pkey=AAPmou42VxJ59GhwgVE6dbd0mSRk0r3kkTx9XlQkKAQVlSZvYJto52koXTOghWHqamVkZLp2QBdeltsehPPgrT-fwEKIHyZGhIiqa9T59M2Y1AKLX6IO7rOF78fGeY88s-VEdI7bSpkNFRdThbljWUHX3sXvsOUUn4CVqwq84Ka7UdcKjz3ZpcG-qMAP5hIMTdWwLPCeBtmsULaYNONpEP_m-1S3dOBODJW08qisxHkJ4_53ah_l7VmXQxS8XN7-4zMuVio5xHfePz3GpgrEGV5w3KdbgHXYjTqAr2jHt2uMjojVowNMpLr4ckg5M00wAR873JtwAh8Y1eGN5UYdQYmc";
+        String url = "http://tx-safety-video.acfun.cn/mediacloud/acfun/acfun_video/hls/JquYMt2x-HLjJWAZsqK0jGYm5qVSDU2qB9cATx_9OBaV_xDeQCdB0O2tTFt8kfs3.00009.ts?pkey=AAMuSHrHibH48r5XuqUVuKZ9BK_3Oc_9kADiEa0p9VZqG9VYkBY_55fJWQgcvz5FloNOk_RvT26EfzkJziblbwSijS4mFYcoBWDKPCzoSvfk-e8eiuFD5UD0GW9tQvu14x2Lu6B9qsR81R5P-nS1EptW9zqrtcAFcPkQm01k3wCde8lr7CSJcxL7XOK27C4lNyEG9jPu_VJl4JCJXPRdw71DsX28vhZA8yITwRJrEV__aspeFnWu8FgDG_A7Vs6X5Ep6PR4E9mIS0I5jh_Xq0mA4IVZWMZaWlnSuRa_DfiYKUbU2S5tlAby5sQDQd8TYDx6Xo1MGzMSY1hy31Vw9noqZ";
         String domain = "tx-safety-video.acfun.cn";
         AcfunJudgePkeyValid judgePkeyValid = new AcfunJudgePkeyValid();
-        System.out.println("flag: " + judgePkeyValid.evaluate(url, domain, 1600510488586L));
+        System.out.println("flag: " + judgePkeyValid.evaluate(url, domain, 1600759424440L));
     }
 }
