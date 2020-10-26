@@ -4,7 +4,6 @@ import com.kuaishou.cdn.urlkeeper.client.UrlKeeperClient;
 import org.apache.hadoop.hive.ql.exec.UDF;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public class DecryptUrl extends UDF {
 
@@ -14,6 +13,8 @@ public class DecryptUrl extends UDF {
         }
 
         try {
+            originUrl = originUrl.replaceAll("(http://)[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+/([a-zA-Z0-9.]+\\.com/.+)",
+                    "$1$2");
             URI url = new URI(originUrl);
             if (url.getPath().startsWith("/ksc")) {
                 String realPath = UrlKeeperClient.getOriginalUrl(url.getPath());
