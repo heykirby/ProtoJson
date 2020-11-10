@@ -10,8 +10,6 @@ import java.util.Map;
 
 public class Params2Json extends UDF {
     private final ObjectMapper MAPPER = JsonUtils.getMapper();
-    private final Map<String, String> KV_MAP = new HashMap<>();
-    private final String KV_SPLITTER = "=";
 
     public String evaluate(String params) throws JsonProcessingException {
         if (params.contains("=")) {
@@ -25,7 +23,9 @@ public class Params2Json extends UDF {
 
     private String trans(String params, String splitter) throws JsonProcessingException {
         String[] kvs = params.split(splitter);
+        Map<String, String> KV_MAP = new HashMap<>();
         for (String kv: kvs) {
+            String KV_SPLITTER = "=";
             String[] pair = kv.split(KV_SPLITTER);
             String value = "";
             if (pair.length > 1) value = pair[1];
