@@ -170,6 +170,10 @@
             <groupId>kuaishou</groupId>
             <artifactId>kuaishou-cdn-urlkeeper-sdk</artifactId>
         </dependency>
+        <dependency>
+            <groupId>kuaishou</groupId>
+            <artifactId>kuaishou-framework-hive</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
