@@ -220,7 +220,7 @@
                                     <pattern>com.</pattern>
                                     <!-- 请您注意 shade路径是独一无二的 该路径不能重复和被模仿  -->
                                     <!-- 请您注意 shade之后的命名规则需要符合自己填写的 最左前缀规则！！！ -->
-                                    <shadedPattern>com.kuaishou.video.niesipin.udf.com.</shadedPattern>
+                                    <shadedPattern>com.kuaishou.video.bigdata.udf.com.</shadedPattern>
                                     <!-- 请您注意 不要重复shade自己 将自己的路径排除 每一级都要指定  -->
                                     <!-- 请您注意 如果有新建层级的包 需要多指定一层 此处为了兼容层级 进行了冗余 -->
                                     <excludes>
@@ -233,7 +233,7 @@
                                     <pattern>org.</pattern>
                                     <!-- 请您注意 shade路径是独一无二的 该路径不能重复和被模仿 -->
                                     <!-- 请您注意 shade之后的命名规则需要符合自己填写的 最左前缀规则！！！ -->
-                                    <shadedPattern>com.kuaishou.video.niesipin.udf.org.</shadedPattern>
+                                    <shadedPattern>com.kuaishou.video.bigdata.udf.org.</shadedPattern>
                                     <excludes>
                                         <!-- 请您注意 将hadoop和hive依赖排除，因为hive包是provided的，不能将hive包shade -->
                                         <exclude>org.apache.hadoop.**</exclude>
