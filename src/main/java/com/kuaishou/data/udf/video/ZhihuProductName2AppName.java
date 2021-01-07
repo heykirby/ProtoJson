@@ -6,13 +6,13 @@ import org.apache.hadoop.hive.ql.exec.UDF;
 
 
 public class ZhihuProductName2AppName extends UDF {
-    private static Map<String, String> appNameMap = new HashMap<>();
+//    private static Map<String, String> appNameMap = new HashMap<>();
     public String evaluate(String productName) {
-        String s = "UNKNOWN";
-        if(appNameMap.containsKey(productName)){
-            s = appNameMap.get(productName);
-        }
-        return s;
+//        String s = "UNKNOWN";
+//        if(appNameMap.containsKey(productName)){
+//            s = appNameMap.get(productName);
+//        }
+        return productName+"test";
     }
 //    public ZhihuProductName2AppName() {
 //        try{
