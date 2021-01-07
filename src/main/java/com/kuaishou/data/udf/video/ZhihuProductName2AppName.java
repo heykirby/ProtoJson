@@ -1,22 +1,19 @@
 package com.kuaishou.data.udf.video;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
-
 import org.apache.hadoop.hive.ql.exec.UDF;
-import org.apache.hive.jdbc.HiveDriver;
-import org.apache.hive.jdbc.Utils;
 
 
 public class ZhihuProductName2AppName extends UDF {
-    private final Map<String, String> appNameMap = new HashMap<>();
-
+    private static Map<String, String> appNameMap = new HashMap<>();
+    public String evaluate(String productName) {
+        String s = "UNKNOWN";
+        if(appNameMap.containsKey(productName)){
+            s = appNameMap.get(productName);
+        }
+        return s;
+    }
 //    public ZhihuProductName2AppName() {
 //        try{
 //            String url =
@@ -61,12 +58,4 @@ public class ZhihuProductName2AppName extends UDF {
 //            throw new RuntimeException(e);
 //        }
 //    }
-
-    public String evaluate(String productName) {
-        String s = "UNKNOWN";
-        if(appNameMap.containsKey(productName)){
-            s = appNameMap.get(productName);
-        }
-        return s;
-    }
 }
