@@ -15,6 +15,6 @@ public class ZhihuProductName2AppName extends UDF {
         if (productName == null || productName.equals("")) {
             return "must input productName";
         }
-        return appNameKconfMap.get().getOrDefault(productName, "DEFAULT");
+        return appNameKconfMap.get().getOrDefault(productName, "UNKNOWN");
     }
 }
