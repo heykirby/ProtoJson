@@ -269,6 +269,10 @@
                     <artifactId>kotlin-stdlib</artifactId>
                     <groupId>org.jetbrains.kotlin</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>kuaishou-cdn-public-sdk</artifactId>
+                    <groupId>kuaishou</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
