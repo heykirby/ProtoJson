@@ -171,6 +171,10 @@
                     <artifactId>kuaishou-framework-hive</artifactId>
                     <groupId>kuaishou</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>hive-jdbc</artifactId>
+                    <groupId>kuaishou</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
