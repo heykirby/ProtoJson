@@ -2,12 +2,12 @@ package com.kuaishou.data.udf.video;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.hive.ql.exec.UDFArgumentException;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.shaded.com.google.common.collect.ImmutableList;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * @author xiazehui <xiazehui@kuaishou.com>
