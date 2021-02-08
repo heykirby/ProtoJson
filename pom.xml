@@ -129,6 +129,26 @@
                     <artifactId>flink-streaming-java_2.11</artifactId>
                     <groupId>org.apache.flink</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>flink-shaded-hadoop2</artifactId>
+                    <groupId>org.apache.flink</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>flink-clients_2.11</artifactId>
+                    <groupId>org.apache.flink</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>flink-core</artifactId>
+                    <groupId>org.apache.flink</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>flink-connector-kafka-0.10_2.11</artifactId>
+                    <groupId>org.apache.flink</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>kuaishou-flink-core</artifactId>
+                    <groupId>kuaishou</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
