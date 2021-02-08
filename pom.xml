@@ -411,10 +411,6 @@
                     <groupId>org.apache.zookeeper</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>curator-framework</artifactId>
-                    <groupId>org.apache.curator</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>commons-lang3</artifactId>
                     <groupId>org.apache.commons</groupId>
                 </exclusion>
