@@ -8,8 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.hive.ql.exec.Description;
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.io.Text;
-
-import org.apache.hadoop.shaded.org.apache.commons.io.FilenameUtils;
+import org.apache.hadoop.hbase.shaded.org.apache.commons.io.FilenameUtils;
 
 @Description(name = "SplitLiveStream",
         value = "_FUNC_(url) - parse live play url,rerurn stream id and transcode template.",

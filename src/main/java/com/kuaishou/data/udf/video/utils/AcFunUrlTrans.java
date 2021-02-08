@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.codec.binary.Base64;
 
-import org.apache.hadoop.shaded.org.apache.commons.io.FilenameUtils;
+import org.apache.hadoop.hbase.shaded.org.apache.commons.io.FilenameUtils;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.kuaishou.data.udf.video.protobuf.FileName;
