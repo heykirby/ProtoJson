@@ -89,6 +89,16 @@
         <dependency>
             <groupId>kuaishou</groupId>
             <artifactId>kuaishou-framework</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hadoop-client-api</artifactId>
+                    <groupId>org.apache.hadoop</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hadoop-client-runtime</artifactId>
+                    <groupId>org.apache.hadoop</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>kuaishou</groupId>-->
@@ -149,6 +159,18 @@
                     <artifactId>kuaishou-flink-core</artifactId>
                     <groupId>kuaishou</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>force-shading</artifactId>
+                    <groupId>org.apache.flink</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>flink-optimizer_2.11</artifactId>
+                    <groupId>org.apache.flink</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>kuaishou-framework-hive</artifactId>
+                    <groupId>kuaishou</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -205,6 +227,26 @@
                 <exclusion>
                     <artifactId>hadoop-yarn-server-common</artifactId>
                     <groupId>org.apache.hadoop</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dropwizard-metrics-hadoop-metrics2-reporter</artifactId>
+                    <groupId>com.github.joshelser</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>parquet-hadoop-bundle</artifactId>
+                    <groupId>org.apache.parquet</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hive-serde</artifactId>
+                    <groupId>org.apache.hive</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hive-common</artifactId>
+                    <groupId>org.apache.hive</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>hive-shims</artifactId>
+                    <groupId>org.apache.hive</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
