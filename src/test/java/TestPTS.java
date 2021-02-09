@@ -1,15 +1,11 @@
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.hive.ql.exec.UDFArgumentException;
-import org.apache.hadoop.shaded.com.google.common.collect.ImmutableList;
-import org.junit.Test;
 
-import io.vavr.collection.HashSet;
+import com.google.common.collect.ImmutableList;
 
 /**
  * @author xiazehui <xiazehui@kuaishou.com>
