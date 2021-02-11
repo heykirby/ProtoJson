@@ -11,5 +11,6 @@ public class TestCityHash {
     public void test() {
         CityHashUDF cityHashUDF = new CityHashUDF();
         System.out.println(cityHashUDF.evaluate("1554947804033", 1411382819L));
+        System.out.println(cityHashUDF.evaluate("ANDROID_476829e166193972"));
     }
 }

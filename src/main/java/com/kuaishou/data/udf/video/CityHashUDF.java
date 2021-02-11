@@ -1,8 +1,10 @@
 package com.kuaishou.data.udf.video;
 
-import com.kuaishou.data.udf.video.utils.CityHash;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.hadoop.hive.ql.exec.UDF;
+
+import com.kuaishou.data.udf.video.utils.CityHash;
+import com.kuaishou.framework.util.CityHash11;
 
 /**
  * @author wuxuexin <wuxuexin@kuaishou.com>
@@ -22,6 +24,21 @@ public class CityHashUDF extends UDF {
         }
 
         return CityHash.cityHash64WithSeed(uid, seed);
+    }
+
+    public Long evaluate(String deviceId) {
+        return getTail(deviceIdHash(deviceId), 100);
+    }
+
+    public static long getTail(long hashed, long mod) {
+        if (mod > 0) {
+            return ((hashed % mod) + mod) % mod;
+        }
+        return 0;
+    }
+
+    public static long deviceIdHash(String deviceId) {
+        return deviceId == null ? 0L : CityHash11.getInstance().cityHash64ASCIIString(deviceId);
     }
 
 }
