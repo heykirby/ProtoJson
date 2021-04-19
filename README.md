@@ -54,5 +54,3 @@ create temporary function parUrl as `$package`;
 |12| 判断url是否为有效的pkey url | String url,String domain, long timestamp | com.kuaishou.data.udf.video.AcfunJudgePkeyValid | 返回字符串类型的true，false或者错误信息 |
 |13| 返回city hash | long id OR String id | long id | com.kuaishou.data.udf.video.CityHashUDF | |
 |14|zhihu产品名称解析|string productName|string|com.kuaishou.data.udf.video.ProductName2AppName|未找到满足要求的结果时返回UNKNOWN|
-|15|判断是否灰度版本|String product, String version|boolean|com.kuaishou.data.udf.video.IsGreyVersion|默认值为false|
-|16|统一媒资根据TaskId获取PhotoId|String bizName, long taskId|String|com.kuaishou.data.udf.video.GetVideoId|解析错误返回null|
