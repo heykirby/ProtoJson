@@ -9,17 +9,20 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import org.apache.hadoop.hive.ql.exec.UDF;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kuaishou.data.udf.video.utils.JsonUtils;
 
 /**
  * @author yehe <yehe@kuaishou.com>
  * Created on 2021-04-24
  */
-public class ExtractTailNoFromCDN {
+public class ExtractTailNoFromCDN extends UDF{
     public static String evaluate(String params) throws JsonProcessingException {
-        HashMap<String, String> hm = new HashMap<>();
+        HashMap<String, List> hm = new HashMap<>();
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(params);
@@ -30,7 +33,7 @@ public class ExtractTailNoFromCDN {
                 List<Integer> tailNosList = new ArrayList<>();
                 Stream.of(value.split(",")).forEach(str -> {
                     if ("".equals(str)) {
-                        hm.put(key, "");
+                        hm.put(key, tailNosList);
                         return;
                     }
                     String[] rangeNos = str.split("-", 0);
@@ -44,11 +47,11 @@ public class ExtractTailNoFromCDN {
                         tailNosList.add(Integer.valueOf(rangeNos[0]));
                     }
                 });
-                hm.put(key, tailNosList.stream().map(String::valueOf).collect(Collectors.joining(";")));
+                hm.put(key, tailNosList);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return (new ObjectMapper().writeValueAsString(hm));
+        return (JsonUtils.getMapper().writeValueAsString(hm));
     }
 }
