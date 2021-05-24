@@ -30,6 +30,11 @@ public class CityHashUDF extends UDF {
         return getTail(deviceIdHash(deviceId), 100);
     }
 
+    public boolean evaluate(String deviceId, Long lowTailNumbers, Long highTailNumbers){
+        long tailNumber = getTail(deviceIdHash(deviceId), 100);
+        return lowTailNumbers <= tailNumber && tailNumber <= highTailNumbers;
+    }
+
     public static long getTail(long hashed, long mod) {
         if (mod > 0) {
             return ((hashed % mod) + mod) % mod;
