@@ -3,13 +3,15 @@ package com.kuaishou.data.udf.video;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.hadoop.hive.ql.exec.UDF;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author wuxuexin <wuxuexin@kuaishou.com>
  * Created on 2021-06-16
  */
-public class KV2Json {
+public class KV2Json extends UDF {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
