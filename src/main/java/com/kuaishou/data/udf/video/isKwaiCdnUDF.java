@@ -1,6 +1,5 @@
 package com.kuaishou.data.udf.video;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.io.Text;
 
@@ -9,6 +8,13 @@ import com.kuaishou.data.udf.video.utils.StringListConfigKey;
 public class isKwaiCdnUDF extends UDF {
 
     public boolean evaluate(Text input) {
+        if (input == null || input.equals("")) {
+            return false;
+        }
+        return StringListConfigKey.kwaiCdnIPList.get().contains(input);
+    }
+
+    public boolean evaluate(String input) {
         if (input == null || input.equals("")) {
             return false;
         }
