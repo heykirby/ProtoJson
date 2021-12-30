@@ -37,39 +37,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-cbor</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-smile</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-guava</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
         </dependency>
+
         <dependency>
             <groupId>kuaishou</groupId>
             <artifactId>kuaishou-framework</artifactId>
@@ -159,10 +132,6 @@
                     <groupId>org.apache.kafka</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>jackson-module-kotlin</artifactId>
-                    <groupId>com.fasterxml.jackson.module</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>kotlin-reflect</artifactId>
                     <groupId>org.jetbrains.kotlin</groupId>
                 </exclusion>
@@ -220,22 +189,17 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>kuaishou</groupId>-->
-            <!--<artifactId>kuaishou-abtest-core</artifactId>-->
-        <!--</dependency>-->
+
         <dependency>
             <groupId>kuaishou</groupId>
             <artifactId>kuaishou-common-definition</artifactId>
         </dependency>
+
         <dependency>
             <groupId>kuaishou</groupId>
             <artifactId>kuaishou-kconf-client</artifactId>
             <exclusions>
-                <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
+
                 <exclusion>
                     <artifactId>jackson-module-kotlin</artifactId>
                     <groupId>com.fasterxml.jackson.module</groupId>
@@ -359,68 +323,14 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase-common</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hadoop-annotations</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hadoop-yarn-api</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>zookeeper</artifactId>
-                    <groupId>org.apache.zookeeper</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase-client</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>zookeeper</artifactId>
-                    <groupId>org.apache.zookeeper</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>netty-all</artifactId>
-                    <groupId>io.netty</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>org.apache.hive</groupId>
             <artifactId>hive-exec</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
             <exclusions>
                 <exclusion>
                     <artifactId>hadoop-common</artifactId>
@@ -481,92 +391,10 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase-shaded-client</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jcl-over-slf4j</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>log4j-over-slf4j</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-client</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>hadoop-common</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hadoop-mapreduce-client-core</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hadoop-yarn-common</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>zookeeper</artifactId>
-                    <groupId>org.apache.zookeeper</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>netty</artifactId>
-                    <groupId>io.netty</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- test dependency -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>kuaishou</groupId>
-            <artifactId>kuaishou-cdn-public-sdk</artifactId>
-            <version>1.0.15</version>
-        </dependency>
-        <dependency>
-            <groupId>kuaishou</groupId>
-            <artifactId>kuaishou-cdn-urlkeeper-sdk</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
-                        </goals>
-                        <configuration>
-                            <pluginParameter>enable_deprecated=true</pluginParameter>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
