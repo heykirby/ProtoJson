@@ -15,7 +15,6 @@ import com.kuaishou.kconf.client.Kconfs;
 public class KMeetingCount extends UDF {
     public static void main(String[] args) {
         boolean evaluate = KMeetingCount.evaluate("185546807739416936");
-        System.out.println("=======开始输出结果==========");
         System.out.println(evaluate);
     }
     public static boolean evaluate(String id) {
