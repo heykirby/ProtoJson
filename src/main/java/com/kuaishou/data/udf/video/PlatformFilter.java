@@ -9,7 +9,7 @@ import org.apache.hadoop.hive.ql.exec.UDF;
 import com.kuaishou.kconf.client.Kconfs;
 
 /**
- * @author yourname <zhouwenjia@kuaishou.com>
+ * @author <zhouwenjia@kuaishou.com>
  * Created on 2022-01-11
  */
 public class PlatformFilter extends UDF {

@@ -7,7 +7,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- * @author yourname <zhouwenjia@kuaishou.com>
+ * @author <zhouwenjia@kuaishou.com>
  * Created on 2022-01-13
  */
 public class ResolutionExtract extends UDF {
