@@ -12,7 +12,7 @@ import com.kuaishou.kconf.client.Kconfs;
  * @author yourname <zhouwenjia@kuaishou.com>
  * Created on 2022-01-11
  */
-public class platformFilter extends UDF {
+public class PlatformFilter extends UDF {
     public boolean evaluate(String platform) {
         Set<String> set = Kconfs.ofStringSet("videoData.whiteList.platformFilter", new HashSet<>()).build().get();
         String s = platform.toUpperCase(Locale.ROOT);
