@@ -10,19 +10,35 @@ import com.kuaishou.data.udf.video.utils.JsonUtils;
  * Created on 2022-01-14
  */
 public class VideoToBExtractResolution extends UDF {
-    public static String execute(String paramJson,String type) {
+    public static String evaluate(String paramJson, String type) {
         try {
             JsonNode node = JsonUtils.parse(paramJson);
-            if (!node.has("outputInfo")) return "UNKNOWN";
+            if (!node.has("outputInfo")) {
+                return "UNKNOWN";
+            }
             JsonNode outputInfoNode = node.path("outputInfo");
-            String codecName = outputInfoNode.path("codecName").asText("UNKNOWN");
+            String codecName = outputInfoNode.path("videoCodec").asText("UNKNOWN");
+            double fps = outputInfoNode.path("fps").asDouble(0);
             long width = outputInfoNode.path("width").asLong(0);
             long height = outputInfoNode.path("height").asLong(0);
             String resolution = getResolution(Math.min(width, height));
-            if("Transcode".equals(type)){
-                return codecName+"."+resolution;
-            }else if("SDR2HDR".equals(type)){
-                return resolution;
+            if ("Transcode".equals(type)) {
+                if (!codecName.equalsIgnoreCase("H264")
+                        && !codecName.equalsIgnoreCase("H265")) {
+                    return null;
+                }
+                return (codecName + "." + resolution).toUpperCase();
+            } else if ("SDR2HDR".equals(type)) {
+                return resolution.toUpperCase();
+            } else if ("SR".equals(type)) {
+                if (!codecName.equalsIgnoreCase("H264")
+                        && !codecName.equalsIgnoreCase("H265")) {
+                    return null;
+                }
+                String str = "";
+                if (fps < 30) str = "30FPS";
+                else str = "60FPS";
+                return (codecName + "." + resolution + "." + str).toUpperCase();
             }
             return "UNKNOWN";
         } catch (Exception e) {
@@ -31,7 +47,8 @@ public class VideoToBExtractResolution extends UDF {
 
 
     }
-    public static String getResolution(long minLen){
+
+    public static String getResolution(long minLen) {
         if (minLen <= 360) {
             return "360P";
         } else if (minLen <= 480) {

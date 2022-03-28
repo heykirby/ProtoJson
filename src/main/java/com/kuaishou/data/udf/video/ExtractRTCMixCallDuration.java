@@ -28,6 +28,7 @@ public class ExtractRTCMixCallDuration extends UDF {
         if (duration <= 0) {
             return result;
         }
+        long rtmp_para = 0;
         while (fields.hasNext()) {
             Entry<String, JsonNode> entry = fields.next();
             if (Pattern.matches("^p\\d+$", entry.getKey())) {
@@ -39,9 +40,12 @@ public class ExtractRTCMixCallDuration extends UDF {
                 } else {
                     resolutionDurationMap.put(resolution, 1l);
                 }
-
+            }
+            if (Pattern.matches("^rtmp\\d+$", entry.getKey())) {
+                rtmp_para++;
             }
         }
+        result.add(String.format("%d\t%d\t%s\t%s", rtmp_para, 0, "max_para", "rtmp"));
         // 通话时长(ms)#分辨率#类型#来源
         long totalResolution = 0;
         for (long k : resolutionDurationMap.keySet()) {
