@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.joda.time.format.DateTimeFormat;
@@ -13,10 +14,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.kuaishou.data.udf.video.utils.JsonUtils;
 
 /**
- * @author yehe <yehe@kuaishou.com>
- * Created on 2021-09-08
+ * @author heye <yehe@kuaishou.com>
+ * Created on 2022-04-13
  */
-public class ExtractRtcCallDuration extends UDF {
+public class ExtractRtcCallDurationFlowId extends UDF {
     public static ArrayList<String> evaluate(String json) throws IOException {
         JsonNode root = JsonUtils.parse(json);
         long lt = root.path("lt").asLong(-1);
@@ -27,26 +28,30 @@ public class ExtractRtcCallDuration extends UDF {
         long realDuration = (lt == -1 || lt < ct) ? 1000 : (lt - ct);
         if (downDetailsNode.has("v") && downDetailsNode.path("v").size() > 0) {
             Iterator<Entry<String, JsonNode>> iterator = downDetailsNode.path("v").fields();
-            HashMap<Long, Integer> resolutionMap = new HashMap<>();
+            TreeMap<String, HashMap<Long, Integer>> map = new TreeMap<>();
             while (iterator.hasNext()) {
                 JsonNode single = iterator.next().getValue();
                 long resolution = single.path("width").asLong(0) * single.path("height").asLong(0);
-                if (resolutionMap.containsKey(resolution)) {
-                    resolutionMap.put(resolution, resolutionMap.get(resolution) + 1);
+                String flowId = single.path("sid").asText("unknown");
+                if (!map.containsKey(flowId)) {
+                    map.put(flowId, new HashMap<>());
                 }
-                resolutionMap.put(resolution, 1);
+                map.get(flowId).put(resolution, map.get(flowId).getOrDefault(resolution, 0) + 1);
             }
-            if (resolutionMap.size() == 0) {
+            if (map.size() == 0) {
                 return result;
             }
             int totalResolution = 0;
-            for (long resolution : resolutionMap.keySet()) {
-                result.add(String.format("%d\t%d\t%s", resolutionMap.get(resolution) * realDuration, resolution, "single_resolution"));
-                totalResolution += resolution * resolutionMap.get(resolution);
+            for (String flowId : map.keySet()) {
+                for (long resolution : map.get(flowId).keySet()) {
+                    Integer occurancy = map.get(flowId).get(resolution);
+                    result.add(String.format("%d\t%d\t%s\t%s", occurancy * realDuration, resolution, "single_resolution", flowId));
+                    totalResolution += resolution * occurancy;
+                }
             }
-            result.add(String.format("%d\t%d\t%s", realDuration, totalResolution, "total_resolution"));
+            result.add(String.format("%d\t%d\t%s\t%s", realDuration, totalResolution, "total_resolution", String.join(",", map.keySet())));
         } else {
-            result.add(String.format("%d\t0\t%s", realDuration, "audio"));
+            result.add(String.format("%d\t0\t%s\t0", realDuration, "audio"));
         }
         return result;
     }

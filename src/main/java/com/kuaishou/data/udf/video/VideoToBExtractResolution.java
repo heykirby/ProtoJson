@@ -47,7 +47,7 @@ public class VideoToBExtractResolution extends UDF {
 
 
     }
-
+    // H264.360P.zhizhenqingliu
     public static String getResolution(long minLen) {
         if (minLen <= 360) {
             return "360P";
