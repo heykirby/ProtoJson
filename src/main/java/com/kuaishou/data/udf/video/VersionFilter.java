@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.apache.hadoop.hive.ql.exec.UDF;
 
+import com.kuaishou.kconf.client.Kconf;
 import com.kuaishou.kconf.client.Kconfs;
 
 /**
@@ -16,9 +17,11 @@ import com.kuaishou.kconf.client.Kconfs;
  * Created on 2022-01-11
  */
 public class VersionFilter extends UDF {
+    private static final Kconf<Map<String, String>> versionFilter =
+            Kconfs.ofStringMap("videoData.whiteList.version_filter", new HashMap<>()).build();
     public boolean evaluate(long uid) {
         Map<String, String> map =
-                Kconfs.ofStringMap("videoData.whiteList.version_filter", new HashMap<>()).build().get();
+                versionFilter.get();
         Set<String> keySet = map.keySet();
         for (String s : keySet) {
             if(uid>=Long.parseLong(s) && uid<Long.parseLong(map.get(s))) return true;
@@ -26,13 +29,3 @@ public class VersionFilter extends UDF {
         return false;
     }
 }
-
-//        List<Long> ans=new ArrayList<>();
-//
-//        map.entrySet().stream()
-//                .sorted(Map.Entry.comparingByKey())
-//                        .forEachOrdered(x->ans.add(Long.parseLong(x.getKey())));
-//        for(int i=0;i<map.keySet().size();i++){
-//            if(uid>=ans.get(i) && uid<Long.parseLong(map.get(String.valueOf(ans.get(i))))) return true;
-//        }
-//        return false;
