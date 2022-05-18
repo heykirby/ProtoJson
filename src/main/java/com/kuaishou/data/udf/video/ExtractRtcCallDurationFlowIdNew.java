@@ -30,7 +30,7 @@ public class ExtractRtcCallDurationFlowIdNew extends UDF {
         JsonNode downDetailsNode = JsonUtils.parse(json);
         if (downDetailsNode.has("v") && downDetailsNode.path("v").size() > 0) {
             Iterator<Entry<String, JsonNode>> iterator = downDetailsNode.path("v").fields();
-            TreeMap<String, HashMap<Long, Integer>> map = new TreeMap<>();
+            TreeMap<String, HashMap<Long, Long>> map = new TreeMap<>();
             while (iterator.hasNext()) {
                 JsonNode single = iterator.next().getValue();
                 long resolution = single.path("width").asLong(0) * single.path("height").asLong(0);
@@ -38,7 +38,7 @@ public class ExtractRtcCallDurationFlowIdNew extends UDF {
                 if (!map.containsKey(flowId)) {
                     map.put(flowId, new HashMap<>());
                 }
-                map.get(flowId).put(resolution, map.get(flowId).getOrDefault(resolution, 0) + 1);
+                map.get(flowId).put(resolution, map.get(flowId).getOrDefault(resolution, 0l) + 1);
             }
             if (map.size() == 0) {
                 return result;
@@ -46,9 +46,9 @@ public class ExtractRtcCallDurationFlowIdNew extends UDF {
             int totalResolution = 0;
             for (String flowId : map.keySet()) {
                 for (long resolution : map.get(flowId).keySet()) {
-                    Integer occurancy = map.get(flowId).get(resolution);
-                    result.add(String.format("%d\t%d\t%s\t%s", occurancy * realDuration, resolution, "single_resolution", flowId));
-                    totalResolution += resolution * occurancy;
+                    Long occur = map.get(flowId).get(resolution);
+                    result.add(String.format("%d\t%d\t%s\t%s", occur * realDuration, resolution, "single_resolution", flowId));
+                    totalResolution += resolution * occur;
                 }
             }
             result.add(String.format("%d\t%d\t%s\t%s", realDuration, totalResolution, "total_resolution", String.join(",", map.keySet())));
