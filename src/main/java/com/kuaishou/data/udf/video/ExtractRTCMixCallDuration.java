@@ -29,6 +29,7 @@ public class ExtractRTCMixCallDuration extends UDF {
             return result;
         }
         long rtmp_para = 0;
+        boolean isDirty = true;
         while (fields.hasNext()) {
             Entry<String, JsonNode> entry = fields.next();
             if (Pattern.matches("^p\\d+$", entry.getKey())) {
@@ -43,6 +44,9 @@ public class ExtractRTCMixCallDuration extends UDF {
             }
             if (Pattern.matches("^rtmp\\d+$", entry.getKey())) {
                 rtmp_para++;
+                if (entry.getValue().path("a_bytes").asLong(0) > 0) {
+                    isDirty = false;
+                }
             }
         }
         result.add(String.format("%d\t%d\t%s\t%s", rtmp_para, 0, "max_para", "rtmp"));
@@ -63,7 +67,9 @@ public class ExtractRTCMixCallDuration extends UDF {
             result.add(String.format("%d\t%d\t%s\t%s", duration, vHeight * vWidth, "single_resolution", "mix"));
         }
         else {
-            result.add(String.format("%d\t%d\t%s\t%s", duration, 0, "audio", "mix"));
+            if (!isDirty) {
+                result.add(String.format("%d\t%d\t%s\t%s", duration, 0, "audio", "mix"));
+            }
         }
 
         return result;
