@@ -36,6 +36,9 @@ public class ExtractRTCMixCallDuration extends UDF {
                 Long height = entry.getValue().path("v_h").asLong(0l);
                 Long width = entry.getValue().path("v_w").asLong(0l);
                 long resolution = height * width;
+                if (resolution == 0 && entry.getValue().path("a_bytes").asLong(0l) <= 0) {
+                    continue;
+                }
                 if (resolutionDurationMap.containsKey(resolution)) {
                     resolutionDurationMap.put(resolution, resolutionDurationMap.get(resolution) + 1);
                 } else {
