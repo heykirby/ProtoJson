@@ -3,8 +3,10 @@ package com.kuaishou.data.udf.video;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.joda.time.format.DateTimeFormat;
@@ -27,11 +29,13 @@ public class ExtractRtcCallDurationNew extends UDF {
             return result;
         }
         JsonNode downDetailsNode = JsonUtils.parse(json);
+        Set<String> videoPidSet = new HashSet<>();
         if (downDetailsNode.has("v") && downDetailsNode.path("v").size() > 0) {
             Iterator<Entry<String, JsonNode>> iterator = downDetailsNode.path("v").fields();
             HashMap<Long, Integer> resolutionMap = new HashMap<>();
             while (iterator.hasNext()) {
                 JsonNode single = iterator.next().getValue();
+                videoPidSet.add(single.path("pid").asText());
                 long resolution = single.path("width").asLong(0) * single.path("height").asLong(0);
                 if (resolutionMap.containsKey(resolution)) {
                     resolutionMap.put(resolution, resolutionMap.get(resolution) + 1);
@@ -47,7 +51,18 @@ public class ExtractRtcCallDurationNew extends UDF {
                 totalResolution += resolution * resolutionMap.get(resolution);
             }
             result.add(String.format("%d\t%d\t%s", realDuration, totalResolution, "total_resolution"));
+            if (downDetailsNode.has("a") && downDetailsNode.path("a").size() > 0) {
+                Iterator<Entry<String, JsonNode>> aIterator = downDetailsNode.path("a").fields();
+                while (aIterator.hasNext()) {
+                    JsonNode aSingle = iterator.next().getValue();
+                    String pid = aSingle.path("pid").asText();
+                    if (pid != null && !videoPidSet.contains(pid)) {
+                        result.add(String.format("%d\t0\t%s", realDuration, "single_audio"));
+                    }
+                }
+            }
         } else {
+            result.add(String.format("%d\t0\t%s", realDuration, "single_audio"));
             result.add(String.format("%d\t0\t%s", realDuration, "audio"));
         }
         return result;
