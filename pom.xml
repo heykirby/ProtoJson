@@ -14,16 +14,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <exclusions>
@@ -38,10 +28,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>kuaishou</groupId>
@@ -192,11 +178,6 @@
 
         <dependency>
             <groupId>kuaishou</groupId>
-            <artifactId>kuaishou-common-definition</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>kuaishou</groupId>
             <artifactId>kuaishou-kconf-client</artifactId>
             <exclusions>
 
@@ -205,126 +186,6 @@
                     <groupId>com.fasterxml.jackson.module</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <!-- 环境里已经升级到4.0.1没有Trace.class 必须自己依赖了 后续hbase-common升级我们在干掉 -->
-        <dependency>
-            <groupId>org.apache.htrace</groupId>
-            <artifactId>htrace-core</artifactId>
-            <version>3.1.0-incubating</version>
-        </dependency>
-
-        <dependency>
-            <groupId>kuaishou</groupId>
-            <artifactId>media-cloud-client</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>grpc-netty-shaded</artifactId>
-                    <groupId>io.grpc</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>kotlin-stdlib-common</artifactId>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>kotlin-stdlib</artifactId>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>kuaishou-cdn-public-sdk</artifactId>
-                    <groupId>kuaishou</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>kuaishou</groupId>
-            <artifactId>kuaishou-live-sdk</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>flink-java</artifactId>
-                    <groupId>org.apache.flink</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>flink-runtime_2.11</artifactId>
-                    <groupId>org.apache.flink</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>flink-streaming-java_2.11</artifactId>
-                    <groupId>org.apache.flink</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>flink-shaded-hadoop2</artifactId>
-                    <groupId>org.apache.flink</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>flink-clients_2.11</artifactId>
-                    <groupId>org.apache.flink</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>flink-core</artifactId>
-                    <groupId>org.apache.flink</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>flink-connector-kafka-0.10_2.11</artifactId>
-                    <groupId>org.apache.flink</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>kuaishou-flink-core</artifactId>
-                    <groupId>kuaishou</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>force-shading</artifactId>
-                    <groupId>org.apache.flink</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>flink-optimizer_2.11</artifactId>
-                    <groupId>org.apache.flink</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>kuaishou-framework-hive</artifactId>
-                    <groupId>kuaishou</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hive-jdbc</artifactId>
-                    <groupId>kuaishou</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>curator-test</artifactId>
-                    <groupId>org.apache.curator</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>netty</artifactId>
-                    <groupId>io.netty</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>grpc-netty</artifactId>
-                    <groupId>io.grpc</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-security-web</artifactId>
-                    <groupId>org.springframework.security</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-context</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
         <dependency>
