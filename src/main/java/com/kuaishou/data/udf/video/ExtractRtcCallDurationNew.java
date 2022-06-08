@@ -54,7 +54,7 @@ public class ExtractRtcCallDurationNew extends UDF {
             if (downDetailsNode.has("a") && downDetailsNode.path("a").size() > 0) {
                 Iterator<Entry<String, JsonNode>> aIterator = downDetailsNode.path("a").fields();
                 while (aIterator.hasNext()) {
-                    JsonNode aSingle = iterator.next().getValue();
+                    JsonNode aSingle = aIterator.next().getValue();
                     String pid = aSingle.path("pid").asText();
                     if (pid != null && !videoPidSet.contains(pid)) {
                         result.add(String.format("%d\t0\t%s", realDuration, "single_audio"));
