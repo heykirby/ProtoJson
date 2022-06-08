@@ -9,7 +9,13 @@ import com.kuaishou.framework.util.UuidUtils;
  * Created on 2022-06-08
  */
 public class EncryptValue extends UDF {
-    public static String evaluate(long id) {
-        return UuidUtils.getUuid(id);
+    public static String evaluate(String id) {
+        long parseValue = 0;
+        try {
+            parseValue = Long.parseLong(id);
+        } catch (Exception e) {
+
+        }
+        return UuidUtils.getUuid(parseValue);
     }
 }
