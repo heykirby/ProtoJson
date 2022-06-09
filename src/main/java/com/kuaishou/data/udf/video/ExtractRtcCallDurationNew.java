@@ -13,6 +13,7 @@ import org.joda.time.format.DateTimeFormat;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.kuaishou.data.udf.video.utils.JsonUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * @author heye <yehe@kuaishou.com>
@@ -24,7 +25,8 @@ public class ExtractRtcCallDurationNew extends UDF {
         long ct = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS+08:00").parseDateTime(ctStr).getMillis();
         ArrayList<String> result = new ArrayList<>();
         long realDuration = (lt == -1 || lt < ct) ? 1000 : (lt - ct);
-        if (json == null) {
+        if (StringUtils.isEmpty(json)) {
+            result.add(String.format("%d\t0\t%s", realDuration, "single_audio"));
             result.add(String.format("%d\t0\t%s", realDuration, "audio"));
             return result;
         }
