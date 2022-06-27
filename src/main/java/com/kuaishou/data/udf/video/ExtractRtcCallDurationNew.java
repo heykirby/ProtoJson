@@ -41,8 +41,9 @@ public class ExtractRtcCallDurationNew extends UDF {
                 long resolution = single.path("width").asLong(0) * single.path("height").asLong(0);
                 if (resolutionMap.containsKey(resolution)) {
                     resolutionMap.put(resolution, resolutionMap.get(resolution) + 1);
+                } else {
+                    resolutionMap.put(resolution, 1);
                 }
-                resolutionMap.put(resolution, 1);
             }
             if (resolutionMap.size() == 0) {
                 return result;

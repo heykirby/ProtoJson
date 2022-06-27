@@ -1,7 +1,5 @@
 package com.kuaishou.data.udf.video;
 
-import java.util.ArrayList;
-
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.joda.time.format.DateTimeFormat;
 

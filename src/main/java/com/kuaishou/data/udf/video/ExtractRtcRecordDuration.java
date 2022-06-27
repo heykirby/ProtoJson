@@ -31,7 +31,7 @@ public class ExtractRtcRecordDuration extends UDF {
         while(fields.hasNext()){
             Entry<String, JsonNode> entry = fields.next();
             if (Pattern.matches("^rtmp\\d+$", entry.getKey())
-                    && entry.getValue().path("url_type").equals("RECORD_URL")) {
+                    && entry.getValue().path("url_type").asText().equals("RECORD_URL")) {
                 sourceType=4;
             }
             if (Pattern.matches("^p\\d+$", entry.getKey())) {
