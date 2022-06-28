@@ -39,12 +39,11 @@ public class ExtractRtcRecordResultDuration extends UDF{
         }
         // mpu_tp为audit时，值为audit
         if("audit".equals(mpuTp)) sourceType="audit";
-
-
         if(!audioOnly){   //audio_only不为纯音频，按照v_wight*v_height得到视频分辨率，rtc_type为single_resolution；
             result.add(String.format("%d\t%d\t%s\t%s", duration, vWight*vHeight, "single_resolution", sourceType));
             if(sourceType=="record") result.add(String.format("%d\t%d\t%s\t%s", duration, vWight*vHeight, "single_resolution", "mix"));
-        }else{                  //audio_only为纯音频，则算一路音频时长，插入混流用量表；rtc_type为audio；
+        }else{
+            //audio_only为纯音频，则算一路音频时长，插入混流用量表；rtc_type为audio；
             result.add(String.format("%d\t%d\t%s\t%s", duration, 0, "audio", sourceType));
             if(sourceType=="record") result.add(String.format("%d\t%d\t%s\t%s", duration, 0, "audio", "mix"));
         }

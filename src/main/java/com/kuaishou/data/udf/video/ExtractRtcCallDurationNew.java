@@ -37,16 +37,13 @@ public class ExtractRtcCallDurationNew extends UDF {
             HashMap<Long, Integer> resolutionMap = new HashMap<>();
             while (iterator.hasNext()) {
                 JsonNode single = iterator.next().getValue();
-                videoPidSet.add(single.path("pid").asText());
+                videoPidSet.add(single.path("uid").asText());
                 long resolution = single.path("width").asLong(0) * single.path("height").asLong(0);
                 if (resolutionMap.containsKey(resolution)) {
                     resolutionMap.put(resolution, resolutionMap.get(resolution) + 1);
                 } else {
                     resolutionMap.put(resolution, 1);
                 }
-            }
-            if (resolutionMap.size() == 0) {
-                return result;
             }
             int totalResolution = 0;
             for (long resolution : resolutionMap.keySet()) {
@@ -58,8 +55,8 @@ public class ExtractRtcCallDurationNew extends UDF {
                 Iterator<Entry<String, JsonNode>> aIterator = downDetailsNode.path("a").fields();
                 while (aIterator.hasNext()) {
                     JsonNode aSingle = aIterator.next().getValue();
-                    String pid = aSingle.path("pid").asText();
-                    if (pid != null && !videoPidSet.contains(pid)) {
+                    String uid = aSingle.path("uid").asText();
+                    if (uid != null && !videoPidSet.contains(uid)) {
                         result.add(String.format("%d\t0\t%s", realDuration, "single_audio"));
                     }
                 }
