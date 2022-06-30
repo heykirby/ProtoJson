@@ -19,7 +19,7 @@ import com.kuaishou.data.udf.video.utils.JsonUtils;
  * @author heye <yehe@kuaishou.com>
  * Created on 2022-05-18
  */
-public class ExtractRtcMixDurationFlowIdNew extends UDF {
+public class JaimeReportPullFlowIdProcessor extends UDF {
     public static ArrayList<String> evaluate(String json) throws IOException {
         JsonNode root = JsonUtils.parse(json);
         Iterator<Entry<String, JsonNode>> fields = root.fields();

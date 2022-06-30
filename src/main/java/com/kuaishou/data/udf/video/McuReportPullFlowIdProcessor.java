@@ -18,7 +18,7 @@ import com.kuaishou.data.udf.video.utils.JsonUtils;
  * @author heye <yehe@kuaishou.com>
  * Created on 2022-05-06
  */
-public class ExtractRtcCallDurationFlowIdNew extends UDF {
+public class McuReportPullFlowIdProcessor extends UDF {
     public static ArrayList<String> evaluate(String json, String ltStr, String ctStr) throws IOException, IOException {
         long lt = (ltStr != null) ? Long.parseLong(ltStr) : -1;
         long ct = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS+08:00").parseDateTime(ctStr).getMillis();

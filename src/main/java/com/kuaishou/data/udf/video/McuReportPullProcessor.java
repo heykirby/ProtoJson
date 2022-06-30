@@ -19,7 +19,7 @@ import org.springframework.util.StringUtils;
  * @author heye <yehe@kuaishou.com>
  * Created on 2022-04-27
  */
-public class ExtractRtcCallDurationNew extends UDF {
+public class McuReportPullProcessor extends UDF {
     public static ArrayList<String> evaluate(String json, String ltStr, String ctStr) throws IOException {
         long lt = (ltStr != null) ? Long.parseLong(ltStr) : -1;
         long ct = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS+08:00").parseDateTime(ctStr).getMillis();
