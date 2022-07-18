@@ -21,7 +21,7 @@ import org.springframework.util.StringUtils;
  */
 public class McuReportPullProcessor extends UDF {
     public static ArrayList<String> evaluate(String json, String ltStr, String ctStr) throws IOException {
-        long lt = (ltStr != null) ? Long.parseLong(ltStr) : -1;
+        long lt = (ltStr != null && !ltStr.isEmpty()) ? Long.parseLong(ltStr) : -1;
         long ct = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS+08:00").parseDateTime(ctStr).getMillis();
         ArrayList<String> result = new ArrayList<>();
         long realDuration = (lt == -1 || lt < ct) ? 1000 : (lt - ct);

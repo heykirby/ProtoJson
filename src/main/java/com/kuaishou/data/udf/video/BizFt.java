@@ -14,7 +14,7 @@ import com.kuaishou.kconf.client.Kconfs;
  */
 public class BizFt extends UDF {
     private static final Kconf<Map<String, String>> ftConf =
-            Kconfs.ofStringMap("videoData.CDN_BIZ_FT.ft", Collections.emptyMap()).build();
+            Kconfs.ofStringMap("videoData.CDN_BIZ_FT.config", Collections.emptyMap()).build();
     public static String evaluate(String ft) {
         return ftConf.get().getOrDefault(ft, "未知部门");
     }

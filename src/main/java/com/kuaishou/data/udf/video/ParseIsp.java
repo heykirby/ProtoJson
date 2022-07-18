@@ -12,7 +12,7 @@ import com.kuaishou.zt.base.common.scope.EndpointIp;
  * @author heye <yehe@kuaishou.com>
  * Created on 2022-06-23
  */
-public class ParseIp extends UDF{
+public class ParseIsp extends UDF{
     public static String evaluate(String ip){
         return parseIp(ip).ispName();
     }
