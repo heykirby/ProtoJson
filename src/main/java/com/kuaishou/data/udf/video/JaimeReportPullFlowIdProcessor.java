@@ -46,6 +46,11 @@ public class JaimeReportPullFlowIdProcessor extends UDF {
                 long resolution = height * width;
                 if (resolution > 0) {
                     videoPidSet.add(pid);
+                } else {
+                    // 过滤空流
+                    if (entry.getValue().path("a_bytes").asLong(0L) == 0) {
+                        continue;
+                    }
                 }
                 if (!pidMap.containsKey(pid)) {
                     pidMap.put(pid, new HashMap<>());
@@ -71,9 +76,14 @@ public class JaimeReportPullFlowIdProcessor extends UDF {
                             sourceType, pid));
                 }
             }
-            result.add(String.format("%d\t%d\t%s\t%s\t%s", duration, totalResolution, "total_resolution", sourceType,
-                    String.join(",", pidMap.keySet())));
+            if (totalResolution > 0) {
+                result.add(String.format("%d\t%d\t%s\t%s\t%s", duration, totalResolution, "total_resolution", sourceType,
+                        String.join(",", pidMap.keySet())));
+            }
         } else {
+            if (pidMap.size() <= 0) {
+                return new ArrayList<>();
+            }
             result.add(String.format("%d\t%d\t%s\t%s\t0", duration, 0, "single_audio", sourceType));
             result.add(String.format("%d\t%d\t%s\t%s\t0", duration, 0, "audio", sourceType));
         }

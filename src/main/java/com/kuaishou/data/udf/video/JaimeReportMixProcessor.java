@@ -2,6 +2,7 @@ package com.kuaishou.data.udf.video;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
@@ -24,7 +25,6 @@ public class JaimeReportMixProcessor extends UDF {
         long vWight = root.path("v_width").asLong(0L);
         long vHeight = root.path("v_height").asLong(0L);
         String mpuTp = root.path("mpu_tp").asText();
-
         String sourceType = "mix";
 
         while (fields.hasNext()) {
@@ -44,6 +44,13 @@ public class JaimeReportMixProcessor extends UDF {
         result.add(String.format("%d\t%d\t%s\t%s", duration, resolution, type, sourceType));
         if ("record".equals(sourceType)) {
             result.add(String.format("%d\t%d\t%s\t%s", duration, resolution, type, "mix"));
+        }
+
+        // 过滤audit空流
+        if ("audit".equals(mpuTp)) {
+            if (resolution <= 0 && root.path("rtmp1").path("a_bytes").asLong(0L) <= 0) {
+                return new ArrayList<>();
+            }
         }
         return result;
     }
