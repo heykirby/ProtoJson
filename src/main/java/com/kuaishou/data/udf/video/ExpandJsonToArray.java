@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
  * @author heye <yehe@kuaishou.com>
  * Created on 2022-08-19
  */
-public class ExpandArray extends UDF{
+public class ExpandJsonToArray extends UDF{
     private static final ObjectMapper MAPPER = new ObjectMapper();
     public static ArrayList<String> evaluate(String json) {
         ArrayList<String> result = new ArrayList<>();
@@ -27,17 +27,6 @@ public class ExpandArray extends UDF{
                     } else {
                         result.add(MAPPER.writeValueAsString(tmp));
                     }
-                }
-            } else if (node instanceof ObjectNode) {
-                for (Iterator<String> it = node.fieldNames(); it.hasNext(); ) {
-                    String key = it.next();
-                    String value = "";
-                    if (node.get(key).isValueNode()) {
-                        value = node.get(key).asText("");
-                    } else {
-                        value = MAPPER.writeValueAsString(node.get(key));
-                    }
-                    result.add(String.format("%s#%s", key, value));
                 }
             }
         } catch (Exception e) {

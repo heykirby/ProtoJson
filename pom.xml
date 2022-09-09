@@ -32,7 +32,10 @@
             <groupId>kuaishou</groupId>
             <artifactId>kuaishou-cdn-util</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>kuaishou</groupId>
+            <artifactId>kuaishou-abtest-core</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>kuaishou</groupId>
