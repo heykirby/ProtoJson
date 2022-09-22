@@ -259,7 +259,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -295,6 +294,9 @@
                                     <!-- 请您注意 如果有新建层级的包 需要多指定一层 此处为了兼容层级 进行了冗余 -->
                                     <excludes>
                                         <exclude>com.kuaishou.data.udf.**</exclude>
+                                        <exclude>com.kuaishou.abtest.**</exclude>
+                                        <exclude>com.kuaishou.framework.abtest.**</exclude>
+                                        <exclude>com.kuaishou.kconf.**</exclude>
 <!--                                        <exclude>com.kuaishou.cdn.**</exclude>-->
                                     </excludes>
                                 </relocation>
