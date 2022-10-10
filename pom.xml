@@ -201,10 +201,10 @@
             <artifactId>hive-exec</artifactId>
             <scope>provided</scope>
             <exclusions>
-                <exclusion>
-                    <artifactId>hadoop-common</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
+<!--                <exclusion>-->
+<!--                    <artifactId>hadoop-common</artifactId>-->
+<!--                    <groupId>org.apache.hadoop</groupId>-->
+<!--                </exclusion>-->
                 <exclusion>
                     <artifactId>hadoop-annotations</artifactId>
                     <groupId>org.apache.hadoop</groupId>
@@ -258,6 +258,19 @@
                     <groupId>org.codehaus.groovy</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>kuaishou</groupId>
+            <artifactId>kuaishou-ipip</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>3.3.2</version>
         </dependency>
     </dependencies>
 

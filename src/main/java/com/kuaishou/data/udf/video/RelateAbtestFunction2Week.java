@@ -32,16 +32,16 @@ public class RelateAbtestFunction2Week extends UDF {
     public static final Kconf<Map<String, String>> accessConf = Kconfs.ofStringMap("videoData.anomaly.access", new HashMap<>()).build();
     public static final Kconf<Long> BUCKET = Kconfs.ofLong("videoData.anomaly.hot_key_bucket", 20).build();
     public static final String AB_LOG = "ab_change_log";
-    public static LoadingCache<String, HashMap<String, HashSet<String>>> CACHE =
+    public static final LoadingCache<String, HashMap<String, HashSet<String>>> CACHE =
             CacheBuilder.newBuilder()
-                    .expireAfterWrite(60, TimeUnit.SECONDS)
-                    .refreshAfterWrite(5, TimeUnit.SECONDS)
+                    .expireAfterWrite(300, TimeUnit.SECONDS)
+                    .refreshAfterWrite(300, TimeUnit.SECONDS)
                     .build(new CacheLoader<String, HashMap<String, HashSet<String>>>() {
                         @Override
                         public HashMap<String, HashSet<String>> load(String key) throws Exception {
                             long curTimestamp = System.currentTimeMillis();
                             HashMap<String, HashSet<String>> resultMap = new HashMap<>();
-                            for (int i = (int) (-1 * BUCKET.get()); i < BUCKET.get(); i++) {
+                            for (int i = 0; i < BUCKET.get(); i++) {
                                 Map<String, String> dataFromRedis = jedis.get().hgetAll(AB_LOG + i);
                                 dataFromRedis.entrySet().stream().forEach(entry -> {
                                     if (curTimestamp - Long.parseLong(entry.getValue()) < 24 * 14 * 3600 * 1000) {
