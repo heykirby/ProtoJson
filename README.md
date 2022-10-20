@@ -1,0 +1,2 @@
+# ProtoJson
+针对只需要解析局部protobuf和json格式数据的场景，ProtoJson提供了比官方接口更快的解析效率和内存占用。
