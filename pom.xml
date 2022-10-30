@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -14,263 +16,28 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>error_prone_annotations</artifactId>
-                    <groupId>com.google.errorprone</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>checker-qual</artifactId>
-                    <groupId>org.checkerframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>kuaishou</groupId>
-            <artifactId>kuaishou-cdn-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>kuaishou</groupId>
-            <artifactId>kuaishou-abtest-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>kuaishou</groupId>
-            <artifactId>kuaishou-framework</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>hadoop-client-api</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hadoop-client-runtime</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jcl-over-slf4j</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jul-to-slf4j</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>log4j-over-slf4j</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>log4j-to-slf4j</artifactId>
-                    <groupId>org.apache.logging.log4j</groupId>
-                </exclusion>
-<!--                <exclusion>-->
-<!--                    <artifactId>error_prone_annotations</artifactId>-->
-<!--                    <groupId>com.google.errorprone</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>zookeeper</artifactId>-->
-<!--                    <groupId>org.apache.zookeeper</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>curator-framework</artifactId>-->
-<!--                    <groupId>org.apache.curator</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>curator-recipes</artifactId>-->
-<!--                    <groupId>org.apache.curator</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>commons-lang3</artifactId>-->
-<!--                    <groupId>org.apache.commons</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>grpc-netty-shaded</artifactId>-->
-<!--                    <groupId>io.grpc</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>netty</artifactId>-->
-<!--                    <groupId>io.netty</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>netty-all</artifactId>-->
-<!--                    <groupId>io.netty</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>netty-tcnative-boringssl-static</artifactId>-->
-<!--                    <groupId>io.netty</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>netty-transport-native-epoll</artifactId>-->
-<!--                    <groupId>io.netty</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>reactor-netty</artifactId>-->
-<!--                    <groupId>io.projectreactor.netty</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>infra-framework-kafka</artifactId>-->
-<!--                    <groupId>kuaishou</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>kafka-clients</artifactId>-->
-<!--                    <groupId>org.apache.kafka</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>kafka_2.11</artifactId>-->
-<!--                    <groupId>org.apache.kafka</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>kotlin-reflect</artifactId>-->
-<!--                    <groupId>org.jetbrains.kotlin</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>kotlin-stdlib-jdk8</artifactId>-->
-<!--                    <groupId>org.jetbrains.kotlin</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>groovy</artifactId>-->
-<!--                    <groupId>org.codehaus.groovy</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-aop</artifactId>-->
-<!--                    <groupId>org.springframework</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-aspects</artifactId>-->
-<!--                    <groupId>org.springframework</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-context</artifactId>-->
-<!--                    <groupId>org.springframework</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-jdbc</artifactId>-->
-<!--                    <groupId>org.springframework</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-boot-loader</artifactId>-->
-<!--                    <groupId>org.springframework.boot</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-beans</artifactId>-->
-<!--                    <groupId>org.springframework</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-core</artifactId>-->
-<!--                    <groupId>org.springframework</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>infra-framework-spring</artifactId>-->
-<!--                    <groupId>kuaishou</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-web</artifactId>-->
-<!--                    <groupId>org.springframework</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-webmvc</artifactId>-->
-<!--                    <groupId>org.springframework</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-webflux</artifactId>-->
-<!--                    <groupId>org.springframework</groupId>-->
-<!--                </exclusion>-->
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>kuaishou</groupId>
-            <artifactId>kuaishou-kconf-client</artifactId>
-            <exclusions>
-
-                <exclusion>
-                    <artifactId>jackson-module-kotlin</artifactId>
-                    <groupId>com.fasterxml.jackson.module</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.hive</groupId>
             <artifactId>hive-exec</artifactId>
-            <scope>provided</scope>
             <exclusions>
-<!--                <exclusion>-->
-<!--                    <artifactId>hadoop-common</artifactId>-->
-<!--                    <groupId>org.apache.hadoop</groupId>-->
-<!--                </exclusion>-->
                 <exclusion>
-                    <artifactId>hadoop-annotations</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
+                    <groupId>jdk.tools</groupId>
+                    <artifactId>jdk.tools</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>hadoop-yarn-api</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hadoop-yarn-common</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hadoop-yarn-server-common</artifactId>
-                    <groupId>org.apache.hadoop</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>dropwizard-metrics-hadoop-metrics2-reporter</artifactId>
-                    <groupId>com.github.joshelser</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>parquet-hadoop-bundle</artifactId>
-                    <groupId>org.apache.parquet</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hive-serde</artifactId>
-                    <groupId>org.apache.hive</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hive-common</artifactId>
-                    <groupId>org.apache.hive</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>hive-shims</artifactId>
-                    <groupId>org.apache.hive</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>zookeeper</artifactId>
-                    <groupId>org.apache.zookeeper</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-lang3</artifactId>
-                    <groupId>org.apache.commons</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>groovy-all</artifactId>
-                    <groupId>org.codehaus.groovy</groupId>
+                    <groupId>org.apache.calcite.avatica</groupId>
+                    <artifactId>avatica</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>kuaishou</groupId>
-            <artifactId>kuaishou-ipip</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
+            <version>2.13.0</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-common</artifactId>
-            <version>3.3.2</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.0</version>
         </dependency>
     </dependencies>
 
@@ -279,7 +46,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.1</version>
+                <configuration>
+                    <!-- put your configurations here -->
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -287,6 +56,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
@@ -298,41 +69,37 @@
                                 </filter>
                             </filters>
                             <relocations>
+                                <!-- 将com下org下进行全量shade  -->
                                 <relocation>
                                     <pattern>com.</pattern>
-                                    <!-- 请您注意 shade路径是独一无二的 该路径不能重复和被模仿  -->
-                                    <!-- 请您注意 shade之后的命名规则需要符合自己填写的 最左前缀规则！！！ -->
-                                    <shadedPattern>com.kuaishou.video.bigdata.udf.com.</shadedPattern>
-                                    <!-- 请您注意 不要重复shade自己 将自己的路径排除 每一级都要指定  -->
-                                    <!-- 请您注意 如果有新建层级的包 需要多指定一层 此处为了兼容层级 进行了冗余 -->
+                                    <!-- ！！！注意shade路径不能重复和被模仿，如果有人参考，可将owesomeudf改成自己项目的名称！！！  -->
+                                    <shadedPattern>com.kuaishou.video.shade.com.</shadedPattern>
+                                    <!-- 将udf包路径下进行排除，注意没找到通配符，为防止新建包，进行冗余  -->
+                                    <!-- 找到通配符  -->
+
                                     <excludes>
-                                        <exclude>com.kuaishou.data.udf.**</exclude>
-                                        <exclude>com.kuaishou.abtest.**</exclude>
-                                        <exclude>com.kuaishou.framework.abtest.**</exclude>
-                                        <exclude>com.kuaishou.kconf.**</exclude>
-<!--                                        <exclude>com.kuaishou.cdn.**</exclude>-->
+                                        <exclude>com.kuaishou.udf.examples.**</exclude>
                                     </excludes>
                                 </relocation>
                                 <relocation>
-                                    <!-- 例： 将org.下进行全量shade -->
                                     <pattern>org.</pattern>
-                                    <!-- 请您注意 shade路径是独一无二的 该路径不能重复和被模仿 -->
-                                    <!-- 请您注意 shade之后的命名规则需要符合自己填写的 最左前缀规则！！！ -->
-                                    <shadedPattern>com.kuaishou.video.bigdata.udf.org.</shadedPattern>
+                                    <!-- ！！！注意shade路径不能重复和被模仿，如果有人参考，可将owesomeudf改成自己项目的名称！！！  -->
+                                    <shadedPattern>com.kuaishou.video.shade.org.</shadedPattern>
                                     <excludes>
-                                        <!-- 请您注意 将hadoop和hive依赖排除，因为hive包是provided的，不能将hive包shade -->
+                                        <!-- 将hadoop和hive依赖排除，因为hive包是provided的，不能将hive包shade -->
+                                        <!-- 找到通配符  -->
                                         <exclude>org.apache.hadoop.**</exclude>
-                                        <exclude>org.slf4j.**</exclude>
-                                        <exclude>org.apache.commons.io.**</exclude>
+                                        <exclude>org.geotools.**</exclude>
+                                        <exclude>org.opengis.**</exclude>
+                                        <exclude>org.jdom.**</exclude>
                                     </excludes>
                                 </relocation>
                             </relocations>
-
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
+
 </project>
