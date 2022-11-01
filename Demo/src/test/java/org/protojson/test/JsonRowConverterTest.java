@@ -43,7 +43,7 @@ public class JsonRowConverterTest {
                 + "\"extra_message\":{\"controller_id\":\"163\",\"request_id\":\"162\"}}";
         String[] result = new String[10];
         long startTime, endTime;
-        long retryTime = 1000000;
+        long retryTime = 10;
         startTime = System.currentTimeMillis();
         for (int i = 0; i < retryTime; i++) {
             JsonNode node = MAPPER.readTree(json);
@@ -51,7 +51,7 @@ public class JsonRowConverterTest {
             result[1] = node.path("stat").path("first_screen").asText();
             result[2] = node.path("stat").path("stay_duration").asText();
             result[3] = node.path("network").path("cost").asText();
-            // result[4] = MAPPER.writeValueAsString(node.path("network").path("requests"));
+            result[4] = MAPPER.writeValueAsString(node.path("network").path("requests"));
             result[5] = node.path("decode").path("bitmap_type").asText();
             result[6] = MAPPER.writeValueAsString(node.path("bs_info").path("biz_extra"));
             result[7] = node.path("bs_info").path("biz_extra").path("bundle_id").asText();

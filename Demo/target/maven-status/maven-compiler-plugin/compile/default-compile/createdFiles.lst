@@ -1,0 +1,4 @@
+org/protojson/pojo/JsonNode.class
+org/protojson/runner/JsonRowConverter.class
+org/protojson/runner/JsonRowConverter$1.class
+org/protojson/pojo/AbstractNode.class
