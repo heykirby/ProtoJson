@@ -46,9 +46,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <configuration>
-                    <!-- put your configurations here -->
-                </configuration>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -56,8 +54,6 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <shadedArtifactAttached>false</shadedArtifactAttached>
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
@@ -69,36 +65,38 @@
                                 </filter>
                             </filters>
                             <relocations>
-                                <!-- 将com下org下进行全量shade  -->
                                 <relocation>
                                     <pattern>com.</pattern>
-                                    <!-- ！！！注意shade路径不能重复和被模仿，如果有人参考，可将owesomeudf改成自己项目的名称！！！  -->
-                                    <shadedPattern>com.kuaishou.video.shade.com.</shadedPattern>
-                                    <!-- 将udf包路径下进行排除，注意没找到通配符，为防止新建包，进行冗余  -->
-                                    <!-- 找到通配符  -->
-
+                                    <!-- 请您注意 shade路径是独一无二的 该路径不能重复和被模仿  -->
+                                    <!-- 请您注意 shade之后的命名规则需要符合自己填写的 最左前缀规则！！！ -->
+                                    <shadedPattern>com.kuaishou.video.bigdata.udf.com.</shadedPattern>
+                                    <!-- 请您注意 不要重复shade自己 将自己的路径排除 每一级都要指定  -->
+                                    <!-- 请您注意 如果有新建层级的包 需要多指定一层 此处为了兼容层级 进行了冗余 -->
                                     <excludes>
-                                        <exclude>com.kuaishou.udf.examples.**</exclude>
+                                        <exclude>com.kuaishou.data.udf.**</exclude>
+                                        <!--                                        <exclude>com.kuaishou.cdn.**</exclude>-->
                                     </excludes>
                                 </relocation>
                                 <relocation>
+                                    <!-- 例： 将org.下进行全量shade -->
                                     <pattern>org.</pattern>
-                                    <!-- ！！！注意shade路径不能重复和被模仿，如果有人参考，可将owesomeudf改成自己项目的名称！！！  -->
-                                    <shadedPattern>com.kuaishou.video.shade.org.</shadedPattern>
+                                    <!-- 请您注意 shade路径是独一无二的 该路径不能重复和被模仿 -->
+                                    <!-- 请您注意 shade之后的命名规则需要符合自己填写的 最左前缀规则！！！ -->
+                                    <shadedPattern>com.kuaishou.video.bigdata.udf.org.</shadedPattern>
                                     <excludes>
-                                        <!-- 将hadoop和hive依赖排除，因为hive包是provided的，不能将hive包shade -->
-                                        <!-- 找到通配符  -->
+                                        <!-- 请您注意 将hadoop和hive依赖排除，因为hive包是provided的，不能将hive包shade -->
                                         <exclude>org.apache.hadoop.**</exclude>
-                                        <exclude>org.geotools.**</exclude>
-                                        <exclude>org.opengis.**</exclude>
-                                        <exclude>org.jdom.**</exclude>
+                                        <exclude>org.slf4j.**</exclude>
+                                        <exclude>org.apache.commons.io.**</exclude>
                                     </excludes>
                                 </relocation>
                             </relocations>
+
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

@@ -34,9 +34,6 @@ public class KsonTuple extends GenericUDTF {
     private transient Object[] nullCols;
     private String[] converterParams;
     private transient JsonRowConverter converter;
-    static {
-
-    }
     @Override
     public StructObjectInspector initialize(ObjectInspector[] argOIs) throws UDFArgumentException {
         isParsed = false;
@@ -65,9 +62,7 @@ public class KsonTuple extends GenericUDTF {
         ArrayList<String> fieldNames = new ArrayList<String>(numCols);
         ArrayList<ObjectInspector> fieldOIs = new ArrayList<ObjectInspector>(numCols);
         for (int i = 0; i < numCols; ++i) {
-            // column name can be anything since it will be named by UDTF as clause
             fieldNames.add("c" + i);
-            // all returned type will be Text
             fieldOIs.add(PrimitiveObjectInspectorFactory.writableStringObjectInspector);
         }
         return ObjectInspectorFactory.getStandardStructObjectInspector(fieldNames, fieldOIs);
@@ -89,11 +84,16 @@ public class KsonTuple extends GenericUDTF {
         try {
             String[] resultStrs = converter.process(((StringObjectInspector) inputOIs[0]).getPrimitiveJavaObject(args[0]));
             for (int i = 0; i < numCols; i++) {
-                if (resultStrs[i] == null) retCols[i] = cols[i];
-                else retCols[i].set(resultStrs[i]);
+                if (resultStrs[i] == null) retCols[i] = null;
+                else {
+                    if (retCols[i] == null) {
+                        retCols[i] = cols[i];
+                    }
+                    retCols[i].set(resultStrs[i]);
+                }
             }
             forward(retCols);
-        } catch (IOException e) {
+        } catch (Exception e) {
             LOG.error("JSON parsing/evaluation exception" + e);
             forward(nullCols);
         }
