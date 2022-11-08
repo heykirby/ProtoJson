@@ -66,6 +66,10 @@
                             </filters>
                             <relocations>
                                 <relocation>
+                                    <pattern>com.fasterxml.jackson.</pattern>
+                                    <shadedPattern>com.kson_tuple.com.fasterxml.jackson.</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>com.</pattern>
                                     <!-- 请您注意 shade路径是独一无二的 该路径不能重复和被模仿  -->
                                     <!-- 请您注意 shade之后的命名规则需要符合自己填写的 最左前缀规则！！！ -->
