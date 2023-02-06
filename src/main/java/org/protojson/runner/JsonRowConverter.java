@@ -19,9 +19,9 @@ public class JsonRowConverter {
     private JsonNode _ptr = root;
     private JsonNode[] row;
     private String[] result;
-    private static String[] EMPTY_RESULT;
+    private String[] EMPTY_RESULT;
     private final int NUM;
-    private int currentVersion = 0;
+    private long currentVersion = 0;
 
     public JsonRowConverter(String... args) {
         NUM = args.length;
