@@ -1,12 +1,10 @@
 package com.kuaishou.data.udf.video;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.hadoop.hive.ql.exec.UDFArgumentException;
 import org.apache.hadoop.hive.ql.metadata.HiveException;
 import org.apache.hadoop.hive.ql.udf.generic.GenericUDTF;
-import org.apache.hadoop.hive.ql.udf.generic.GenericUDTFJSONTuple;
 import org.apache.hadoop.hive.serde.serdeConstants;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspectorFactory;
@@ -17,8 +15,6 @@ import org.apache.hadoop.io.Text;
 import org.protojson.runner.JsonRowConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author heye <yehe@kuaishou.com>
@@ -34,6 +30,7 @@ public class KsonTuple extends GenericUDTF {
     private transient Object[] nullCols;
     private String[] converterParams;
     private transient JsonRowConverter converter;
+
     @Override
     public StructObjectInspector initialize(ObjectInspector[] argOIs) throws UDFArgumentException {
         isParsed = false;
@@ -76,16 +73,18 @@ public class KsonTuple extends GenericUDTF {
         }
         if (!isParsed) {
             for (int i = 0; i < numCols; i++) {
-                converterParams[i] = ((StringObjectInspector) inputOIs[i+1]).getPrimitiveJavaObject(args[i+1]);
+                converterParams[i] = ((StringObjectInspector) inputOIs[i + 1]).getPrimitiveJavaObject(args[i + 1]);
             }
             converter = new JsonRowConverter(converterParams);
             isParsed = true;
         }
         try {
-            String[] resultStrs = converter.process(((StringObjectInspector) inputOIs[0]).getPrimitiveJavaObject(args[0]));
+            String[] resultStrs =
+                    converter.process(((StringObjectInspector) inputOIs[0]).getPrimitiveJavaObject(args[0]));
             for (int i = 0; i < numCols; i++) {
-                if (resultStrs[i] == null) retCols[i] = null;
-                else {
+                if (resultStrs[i] == null) {
+                    retCols[i] = null;
+                } else {
                     if (retCols[i] == null) {
                         retCols[i] = cols[i];
                     }
