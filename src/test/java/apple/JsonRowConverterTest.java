@@ -74,14 +74,22 @@ public class JsonRowConverterTest {
                 + "\"bundle_id\":\"xxxxxxxxxxx\",\"up_biz_ft\":\"FT_Feed\"},\"scene\":\"feed_cover\"},"
                 + "\"sys_prof\":{\"in_background\":false,\"mem_usage\":0.1311},"
                 + "\"extra_message\":{\"controller_id\":\"163\",\"request_id\":\"162\"}}";
-        JsonRowConverter converter = new JsonRowConverter("sdk_ver",
+        JsonRowConverter converter = new JsonRowConverter(
+                "sdk_ver",
                 "config",
                 "config.max_disk_cache_size",
                 "network.request",
+                "network.requests",
+                "network.requests",
+                "network.requests.3",
+                "extra_message",
+                "bs_info.biz_ft",
+                "bs_info.biz_extra",
                 "network.requests.0",
                 "network.requests.0.status",
-                "network.requests.0.server_ip");
+                "network.requests.0.server_ip"
+        );
         String[] process = converter.process(str);
-        System.out.println(String.join(",", process));
+        System.out.println(String.join("\n\n", process));
     }
 }
