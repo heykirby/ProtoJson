@@ -7,6 +7,7 @@ import org.protojson.pojo.JsonNode;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -23,6 +24,13 @@ public class JsonRowConverter {
     private Stack<JsonToken> stack = new Stack<>();
     private final int NUM;
     private long currentVersion = 0;
+
+    static {
+        // Allows for unescaped ASCII control characters in JSON values
+        MAPPER.enable(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature());
+        // Enabled to accept quoting of all character backslash qooting mechanism
+        MAPPER.enable(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER.mappedFeature());
+    }
 
     public JsonRowConverter(String... args) {
         NUM = args.length;
@@ -66,9 +74,6 @@ public class JsonRowConverter {
     private void _recursion(JsonNode ptr, JsonParser parser) {
         try {
             while (parser.currentToken() != null) {
-                //                System.out.println("parser name:" + parser.currentName());
-                //                System.out.println("parser token:" + parser.getCurrentToken().name());
-                //                System.out.println("node name:" + ptr.getName());
                 switch (parser.currentToken()) {
                     case START_OBJECT:
                         ptr.setVersion(currentVersion);
