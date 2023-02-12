@@ -71,84 +71,78 @@ public class JsonRowConverter {
         return getResult();
     }
 
-    private void _recursion(JsonNode ptr, JsonParser parser) {
-        try {
-            while (parser.currentToken() != null) {
-                switch (parser.currentToken()) {
-                    case START_OBJECT:
-                        ptr.setVersion(currentVersion);
-                        ptr.setStart(parser.currentLocation().getColumnNr() - 2);
-                        stack.push(JsonToken.START_OBJECT);
-                        parser.nextToken();
-                        _recursion(ptr, parser);
-                        return;
-                    case END_OBJECT:
-                        ptr.setEnd(parser.getCurrentLocation().getColumnNr() - 1);
-                        if (ptr.isLeaf()) {
-                            ptr.setValue(_json.substring(ptr.getStart(), ptr.getEnd()));
-                        }
-                        parser.nextToken();
-                        if (stack.size() <= 0 || stack.peek() != JsonToken.START_OBJECT) {
-                            throw new RuntimeException("parse error");
-                        }
-                        stack.pop();
-                        return;
-                    case START_ARRAY:
-                        ptr.setVersion(currentVersion);
-                        ptr.setStart(parser.getCurrentLocation().getColumnNr() - 2);
-                        stack.push(JsonToken.START_ARRAY);
-                        parser.nextToken();
-                        int i = 0;
-                        while (parser.currentToken() != JsonToken.END_ARRAY) {
-                            if (ptr.getChildren().containsKey("" + i)) {
-                                ptr = ptr.getChildren().get("" + i);
-                                _recursion(ptr, parser);
-                                ptr = ptr.getParent();
-                            } else {
-                                skip(parser);
-                            }
-                            ++i;
-                        }
-                        break;
-                    case END_ARRAY:
-                        ptr.setEnd(parser.getCurrentLocation().getColumnNr() - 1);
-                        if (ptr.isLeaf()) {
-                            ptr.setValue(_json.substring(ptr.getStart(), ptr.getEnd()));
-                        }
-                        parser.nextToken();
-                        if (stack.size() <= 0 || stack.peek() != JsonToken.START_ARRAY) {
-                            throw new RuntimeException("parse error");
-                        }
-                        stack.pop();
-                        return;
-                    case FIELD_NAME:
-                        parser.nextToken();
-                        if (ptr.getChildren() != null && ptr.getChildren().containsKey(parser.getCurrentName())) {
-                            ptr = ptr.getChildren().get(parser.getCurrentName());
-                            ptr.setVersion(currentVersion);
-                            if (ptr.getChildren() == null) {
-                                ptr.setValue(skip(parser, true));
-                            } else {
-                                _recursion(ptr, parser);
-                            }
+    private void _recursion(JsonNode ptr, JsonParser parser) throws IOException {
+        while (parser.currentToken() != null) {
+            switch (parser.currentToken()) {
+                case START_OBJECT:
+                    ptr.setVersion(currentVersion);
+                    ptr.setStart(parser.currentLocation().getCharOffset() - 1);
+                    stack.push(JsonToken.START_OBJECT);
+                    parser.nextToken();
+                    _recursion(ptr, parser);
+                    return;
+                case END_OBJECT:
+                    ptr.setEnd(parser.getCurrentLocation().getCharOffset());
+                    ptr.setValue(_json.substring((int) ptr.getStart(), (int) ptr.getEnd()));
+                    parser.nextToken();
+                    if (stack.size() <= 0 || stack.peek() != JsonToken.START_OBJECT) {
+                        throw new RuntimeException("parse error");
+                    }
+                    stack.pop();
+                    return;
+                case START_ARRAY:
+                    ptr.setVersion(currentVersion);
+                    ptr.setStart(parser.getCurrentLocation().getCharOffset() - 1);
+                    stack.push(JsonToken.START_ARRAY);
+                    parser.nextToken();
+                    int i = 0;
+                    while (parser.currentToken() != JsonToken.END_ARRAY) {
+                        if (ptr.getChildren().containsKey("" + i)) {
+                            ptr = ptr.getChildren().get("" + i);
+                            _recursion(ptr, parser);
                             ptr = ptr.getParent();
                         } else {
                             skip(parser);
                         }
-                        break;
-                    case VALUE_STRING:
-                    case VALUE_NUMBER_FLOAT:
-                    case VALUE_NULL:
-                    case VALUE_NUMBER_INT:
-                    case VALUE_TRUE:
-                    case VALUE_FALSE:
+                        ++i;
+                    }
+                    break;
+                case END_ARRAY:
+                    ptr.setEnd(parser.getCurrentLocation().getCharOffset());
+                    if (ptr.isLeaf()) {
+                        ptr.setValue(_json.substring((int) ptr.getStart(), (int) ptr.getEnd()));
+                    }
+                    parser.nextToken();
+                    if (stack.size() <= 0 || stack.peek() != JsonToken.START_ARRAY) {
+                        throw new RuntimeException("parse error");
+                    }
+                    stack.pop();
+                    return;
+                case FIELD_NAME:
+                    parser.nextToken();
+                    if (ptr.getChildren() != null && ptr.getChildren().containsKey(parser.getCurrentName())) {
+                        ptr = ptr.getChildren().get(parser.getCurrentName());
                         ptr.setVersion(currentVersion);
-                        ptr.setValue(parser.getValueAsString());
-                        return;
-                }
+                        if (ptr.getChildren() == null) {
+                            ptr.setValue(skip(parser, true));
+                        } else {
+                            _recursion(ptr, parser);
+                        }
+                        ptr = ptr.getParent();
+                    } else {
+                        skip(parser);
+                    }
+                    break;
+                case VALUE_STRING:
+                case VALUE_NUMBER_FLOAT:
+                case VALUE_NULL:
+                case VALUE_NUMBER_INT:
+                case VALUE_TRUE:
+                case VALUE_FALSE:
+                    ptr.setVersion(currentVersion);
+                    ptr.setValue(parser.getValueAsString());
+                    return;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -164,8 +158,8 @@ public class JsonRowConverter {
     }
 
     private String skip(JsonParser parser, boolean retainValue) throws IOException {
-        int i = 0, start;
-        start = retainValue ? parser.getCurrentLocation().getColumnNr() - 2 : 0;
+        int i = 0;
+        long start = retainValue ? parser.getCurrentLocation().getCharOffset() -1 : 0;
         String result;
         switch (parser.currentToken()) {
             case START_OBJECT:
@@ -177,7 +171,7 @@ public class JsonRowConverter {
                         i--;
                     }
                 }
-                result = retainValue ? _json.substring(start, parser.getCurrentLocation().getColumnNr() - 1) : null;
+                result = retainValue ? _json.substring((int) start, (int) parser.getCurrentLocation().getCharOffset()) : null;
                 break;
             case START_ARRAY:
                 i++;
@@ -188,7 +182,7 @@ public class JsonRowConverter {
                         i--;
                     }
                 }
-                result = retainValue ? _json.substring(start, parser.getCurrentLocation().getColumnNr() - 1) : null;
+                result = retainValue ? _json.substring((int) start, (int) parser.getCurrentLocation().getCharOffset()) : null;
                 break;
             default:
                 result = retainValue ? parser.getValueAsString() : null;
