@@ -7,6 +7,13 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.1.1</version>
         <executions>
@@ -27,6 +34,10 @@
                 </filter>
               </filters>
               <relocations>
+                <relocation>
+                  <pattern>com.fasterxml.jackson.</pattern>
+                  <shadedPattern>com.kson_tuple.com.fasterxml.jackson.</shadedPattern>
+                </relocation>
                 <relocation>
                   <pattern>org.</pattern>
                   <shadedPattern>com.kuaishou.protojson.org.</shadedPattern>
