@@ -65,6 +65,7 @@ public class JsonRowConverter {
         if (json == null || json.length() == 0) {
             return EMPTY_RESULT;
         }
+        stack.clear();
         JsonParser parser = MAPPER.createParser(json);
         parser.nextToken();
         _recursion(root, parser);
@@ -141,6 +142,7 @@ public class JsonRowConverter {
                 case VALUE_FALSE:
                     ptr.setVersion(currentVersion);
                     ptr.setValue(parser.getValueAsString());
+                    parser.nextToken();
                     return;
             }
         }
