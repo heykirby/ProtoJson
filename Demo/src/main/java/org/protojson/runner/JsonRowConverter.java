@@ -24,6 +24,8 @@ public class JsonRowConverter {
     private Stack<JsonToken> stack = new Stack<>();
     private final int NUM;
     private long currentVersion = 0;
+    // pruning, when alreadyProcessedCols == NUM
+    private long alreadyProcessedCols = 0;
 
     static {
         // Allows for unescaped ASCII control characters in JSON values
@@ -60,6 +62,7 @@ public class JsonRowConverter {
     }
 
     public String[] process(String json) throws IOException {
+        alreadyProcessedCols = 0;
         currentVersion++;
         _json = json;
         if (json == null || json.length() == 0) {
@@ -73,7 +76,7 @@ public class JsonRowConverter {
     }
 
     private void _recursion(JsonNode ptr, JsonParser parser) throws IOException {
-        while (parser.currentToken() != null) {
+        while (parser.currentToken() != null && alreadyProcessedCols < NUM) {
             switch (parser.currentToken()) {
                 case START_OBJECT:
                     ptr.setVersion(currentVersion);
@@ -84,7 +87,12 @@ public class JsonRowConverter {
                     return;
                 case END_OBJECT:
                     ptr.setEnd(parser.getCurrentLocation().getCharOffset());
-                    ptr.setValue(_json.substring((int) ptr.getStart(), (int) ptr.getEnd()));
+                    if (ptr.isLeaf()) {
+                        ptr.setValue(_json.substring((int) ptr.getStart(), (int) ptr.getEnd()));
+                        if (++alreadyProcessedCols >= NUM) {
+                            return;
+                        }
+                    }
                     parser.nextToken();
                     if (stack.size() <= 0 || stack.peek() != JsonToken.START_OBJECT) {
                         throw new RuntimeException("parse error");
@@ -112,6 +120,9 @@ public class JsonRowConverter {
                     ptr.setEnd(parser.getCurrentLocation().getCharOffset());
                     if (ptr.isLeaf()) {
                         ptr.setValue(_json.substring((int) ptr.getStart(), (int) ptr.getEnd()));
+                        if (++alreadyProcessedCols >= NUM) {
+                            return;
+                        }
                     }
                     parser.nextToken();
                     if (stack.size() <= 0 || stack.peek() != JsonToken.START_ARRAY) {
@@ -126,6 +137,9 @@ public class JsonRowConverter {
                         ptr.setVersion(currentVersion);
                         if (ptr.getChildren() == null) {
                             ptr.setValue(skip(parser, true));
+                            if (++alreadyProcessedCols >= NUM) {
+                                return;
+                            }
                         } else {
                             _recursion(ptr, parser);
                         }
@@ -142,6 +156,9 @@ public class JsonRowConverter {
                 case VALUE_FALSE:
                     ptr.setVersion(currentVersion);
                     ptr.setValue(parser.getValueAsString());
+                    if (++alreadyProcessedCols >= NUM) {
+                        return;
+                    }
                     parser.nextToken();
                     return;
             }
