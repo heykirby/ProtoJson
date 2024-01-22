@@ -12,6 +12,7 @@ public class SimdJsonParser {
     private final BitIndexes bitIndexes;
     private final JsonIterator jsonIterator;
     private final byte[] paddedBuffer;
+    private byte[] padded;
 
     public SimdJsonParser() {
         this(DEFAULT_CAPACITY, DEFAULT_MAX_DEPTH);
@@ -25,12 +26,19 @@ public class SimdJsonParser {
         indexer = new StructuralIndexer(bitIndexes);
     }
 
-    public JsonValue parse(byte[] buffer, int len) {
+    BitIndexes buildIndex(byte[] buffer, int len) {
         stage0(buffer);
-        byte[] padded = padIfNeeded(buffer, len);
+        padded = padIfNeeded(buffer, len);
         reset(padded, len);
         stage1(padded);
+        return bitIndexes;
+    }
+    JsonValue construct(int len) {
         return stage2(padded, len);
+    }
+    public JsonValue parse(byte[] buffer, int len) {
+        buildIndex(buffer, len);
+        return construct(len);
     }
 
     private byte[] padIfNeeded(byte[] buffer, int len) {

@@ -157,33 +157,10 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from(components.java)
-
             pom {
-                name = project.name
-                description = 'A Java version of simdjson, a high-performance JSON parser utilizing SIMD instructions.'
-                url = 'https://github.com/simdjson/simdjson-java'
-                issueManagement {
-                    system = 'GitHub Issue Tracking'
-                    url = 'https://github.com/simdjson/simdjson-java/issues'
-                }
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'piotrrzysko'
-                        name = 'Piotr Rżysko'
-                        email = 'piotr.rzysko@gmail.com'
-                    }
-                }
-                scm {
-                    url = 'https://github.com/simdjson/simdjson-java'
-                    connection = 'scm:git@github.com:simdjson/simdjson-java.git'
-                    developerConnection = 'scm:git@github.com:simdjson/simdjson-java.git'
-                }
+                groupId 'org.simdjson'  // 替换为你的 Group ID
+                artifactId 'simdjson-java'  // 替换为你的 Artifact ID
+                version '0.2.0-kwai'  // 替换为你的版本号
             }
         }
     }

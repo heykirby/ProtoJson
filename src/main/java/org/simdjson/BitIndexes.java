@@ -11,6 +11,16 @@ class BitIndexes {
         indexes = new int[capacity];
     }
 
+    int[] getIndexes() {
+        return indexes;
+    }
+    int getWriteIdx() {
+        return writeIdx;
+    }
+    int getReadIdx() {
+        return getReadIdx();
+    }
+
     void write(int blockIndex, long bits) {
         if (bits == 0) {
             return;
